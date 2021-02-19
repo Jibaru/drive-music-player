@@ -1,4 +1,6 @@
-const { GET_FILE_URL } = require("../../api/resources/google-drive.uri");
+const {
+  GET_FILE_URL,
+} = require("../../api/constants/google-drive/google-drive.uri");
 
 module.exports = (sequelize, DataTypes) => {
   const Song = sequelize.define(
