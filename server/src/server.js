@@ -3,8 +3,8 @@
 /// ===================================================
 const express = require("express");
 
-// Enviroment
-require("./env/environment");
+// Environment
+require("dotenv").config();
 
 // Express server
 const app = express();

@@ -1,7 +1,7 @@
 // .sequelizerc
 const path = require('path');
 
-require('./src/env/environment.js');
+require("dotenv").config();
 
 module.exports = {
   'config': path.resolve('src/db/config', 'config.js'),
