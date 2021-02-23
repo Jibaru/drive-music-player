@@ -5,8 +5,9 @@
         v-for="route in routes"
         :key="route.name"
         :to="{ name: route.name }"
+        :class="{ 'selected-tab': selectedRouteName === route.name }"
       >
-        <li>
+        <li @click="selectRoute(route.name)">
           <div>
             <font-awesome-icon :icon="route.iconClass" />
           </div>
@@ -25,20 +26,33 @@ export default {
           name: "Menu",
           text: "Menu",
           iconClass: "bars",
+          path: "/menu",
         },
         {
           name: "CurrentSong",
           text: "Song",
           iconClass: "music",
+          path: "/current-song",
         },
         {
           name: "CurrentPlaylist",
           text: "Playlist",
           iconClass: "list",
+          path: "/current-playlist",
         },
       ],
       selectedRouteName: null,
     };
+  },
+  watch: {
+    $route(newVal) {
+      const findedRoute = this.routes.find(
+        (route) => route.path === newVal.path
+      );
+      if (findedRoute) {
+        this.selectedRouteName = findedRoute.name;
+      }
+    },
   },
   methods: {
     selectRoute(name) {
@@ -66,7 +80,6 @@ ul {
 
 a {
   width: 100%;
-  padding: 0.5rem;
   text-align: center;
   background-color: var(--app-primary-color);
   color: var(--app-primary-contrast-color);
@@ -77,14 +90,14 @@ a {
 
 a:hover,
 a:active,
-.active {
+.route-link-active,
+.selected-tab {
   background-color: var(--app-secondary-color);
   color: var(--app-secondary-contrast-color);
 }
 
-.route-link-active {
-  background-color: var(--app-secondary-color);
-  color: var(--app-secondary-contrast-color);
+li {
+  padding: 0.5rem;
 }
 
 @media (min-width: 576px) {
