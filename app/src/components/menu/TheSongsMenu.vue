@@ -8,6 +8,9 @@
           :class="{ 'tab-selected': tabSelected === tab.component }"
           @click="selectTab(tab.component)"
         >
+          <div>
+            <font-awesome-icon :icon="tab.icon" />
+          </div>
           {{ tab.name }}
         </li>
       </ul>
@@ -19,13 +22,13 @@
 </template>
 <script>
 import SongList from "../song/SongList.vue";
-import PlaylistsSongList from "../song/PlaylistsSongList.vue";
+import PlaylistList from "../playlist/PlaylistList.vue";
 import FavoriteSongsList from "../song/FavoriteSongsList.vue";
 
 export default {
   components: {
     SongList,
-    PlaylistsSongList,
+    PlaylistList,
     FavoriteSongsList,
   },
   data() {
@@ -34,14 +37,17 @@ export default {
         {
           name: "All Songs",
           component: "song-list",
+          icon: "file-audio",
         },
         {
           name: "Playlists",
-          component: "playlists-song-list",
+          component: "playlist-list",
+          icon: "stream",
         },
         {
           name: "Favorites",
           component: "favorite-songs-list",
+          icon: "heart",
         },
       ],
       tabSelected: null,
