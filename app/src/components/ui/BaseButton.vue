@@ -1,5 +1,5 @@
 <template>
-  <button :class="classStyles" :style="styles">
+  <button :class="classStyles">
     <slot />
   </button>
 </template>
@@ -16,15 +16,19 @@ export default {
       required: false,
       default: false,
     },
-    flat: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     bottomLeftRounded: {
       type: Boolean,
       required: false,
       default: false,
+    },
+    color: {
+      type: String,
+      required: false,
+      default: "standard",
+      validator: (val) => {
+        const validValues = ["standard", "danger", "warning", "light"];
+        return !!validValues.find((v) => v === val);
+      },
     },
   },
   computed: {
@@ -32,8 +36,11 @@ export default {
       return {
         "d-block": this.dBlock,
         mini: this.mini,
-        flat: this.flat,
         "bottom-left-rounded": this.bottomLeftRounded,
+        "standard-btn": this.color === "standard",
+        "warning-btn": this.color === "warning",
+        "danger-btn": this.color === "danger",
+        "light-btn": this.color === "light",
       };
     },
   },
@@ -41,14 +48,13 @@ export default {
 </script>
 <style scoped>
 button {
-  background-color: var(--app-secondary-color);
-  color: var(--app-secondary-contrast-color);
   padding: 0.8rem 1rem;
   border: none;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   margin: 0.1rem;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 button:focus {
@@ -67,12 +73,27 @@ button:focus {
   padding: 0.3rem 0.5rem;
 }
 
-.flat {
-  background-color: rgb(255, 255, 255, 0.8);
-  color: black;
-}
-
 .bottom-left-rounded {
   border-radius: 0 0 50% 0;
+}
+
+.standard-btn {
+  background-color: var(--app-secondary-color);
+  color: var(--app-secondary-contrast-color);
+}
+
+.warning-btn {
+  background-color: var(--app-warning-color);
+  color: var(--app-warning-contrast-color);
+}
+
+.danger-btn {
+  background-color: var(--app-danger-color);
+  color: var(--app-danger-contrast-color);
+}
+
+.light-btn {
+  background-color: var(--app-light-color);
+  color: var(--app-light-contrast-color);
 }
 </style>
