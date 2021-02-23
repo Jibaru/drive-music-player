@@ -13,6 +13,11 @@ import {
   faTrashAlt as fasTrashAlt,
   faStream as fasStream,
   faFileAudio as fasFileAudio,
+  faDownload as fasDownload,
+  faPlay as fasPlay,
+  faBackward as fasBackward,
+  faForward as fasForward,
+  faVolumeDown as fasVolumeDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -32,6 +37,11 @@ library.add([
   fasTrashAlt,
   fasStream,
   fasFileAudio,
+  fasDownload,
+  fasPlay,
+  fasBackward,
+  fasForward,
+  fasVolumeDown,
 ]);
 
 export { FontAwesomeIcon };
