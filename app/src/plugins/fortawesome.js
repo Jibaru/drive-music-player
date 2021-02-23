@@ -7,6 +7,12 @@ import {
   faRedo as fasRedo,
   faEdit as fasEdit,
   faHeart as fasHeart,
+  faPlus as fasPlus,
+  faHistory as fasHistory,
+  faClock as fasClock,
+  faTrashAlt as fasTrashAlt,
+  faStream as fasStream,
+  faFileAudio as fasFileAudio,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -20,6 +26,12 @@ library.add([
   fasEdit,
   fasHeart,
   farHeart,
+  fasPlus,
+  fasHistory,
+  fasClock,
+  fasTrashAlt,
+  fasStream,
+  fasFileAudio,
 ]);
 
 export { FontAwesomeIcon };
