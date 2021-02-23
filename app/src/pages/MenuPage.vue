@@ -1,3 +1,12 @@
 <template>
-  <h1>Menu page</h1>
+  <the-menu />
 </template>
+<script>
+import TheMenu from "../components/menu/TheMenu.vue";
+
+export default {
+  components: {
+    TheMenu,
+  },
+};
+</script>
