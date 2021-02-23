@@ -1,9 +1,7 @@
 <template>
-  <div id="mobile-view-container">
-    <main>
-      <router-view></router-view>
-    </main>
-    <the-navbar></the-navbar>
+  <div class="mobile-view-container">
+    <router-view class="main"></router-view>
+    <the-navbar class="navbar"></the-navbar>
   </div>
 </template>
 <script>
@@ -16,14 +14,15 @@ export default {
 };
 </script>
 <style scoped>
-#mobile-view-container {
+.mobile-view-container {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
 }
 
-main {
-  flex: 1;
+.main {
+  height: calc(100vh - 3.5rem);
+}
+
+.navbar {
+  height: 3.5rem;
 }
 </style>
