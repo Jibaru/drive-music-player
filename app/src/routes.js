@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import LoginPage from "./pages/LoginPage.vue";
+import RegisterPage from "./pages/RegisterPage.vue";
 import HomePage from "./pages/HomePage.vue";
 import MenuPage from "./pages/MenuPage.vue";
 import CurrentSongPage from "./pages/CurrentSongPage.vue";
@@ -11,7 +13,17 @@ import CurrentPlaylistPage from "./pages/CurrentPlaylistPage.vue";
 const routes = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/login",
+  },
+  {
+    name: "Login",
+    path: "/login",
+    component: LoginPage,
+  },
+  {
+    name: "Register",
+    path: "/register",
+    component: RegisterPage,
   },
   {
     name: "Home",
