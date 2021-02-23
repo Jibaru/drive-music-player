@@ -1,18 +1,17 @@
 import { createApp } from "vue";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faList, faBars, faMusic } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
 import App from "./App.vue";
 import router from "./routes.js";
 
-const app = createApp(App);
+import BaseButton from "./components/ui/BaseButton.vue";
 
-library.add(faList, faBars, faMusic);
+import { FontAwesomeIcon } from "./plugins/fortawesome.js";
+
+const app = createApp(App);
 
 app.use(router);
 
+app.component("base-button", BaseButton);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");
