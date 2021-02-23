@@ -20,6 +20,20 @@ export default {
       required: false,
       default: false,
     },
+    mini: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    color: {
+      type: String,
+      required: false,
+      default: "standart",
+      validator: (val) => {
+        const values = ["standart", "warning", "danger"];
+        return values.find((v) => v !== val);
+      },
+    },
   },
   computed: {
     classStyles() {
@@ -27,6 +41,8 @@ export default {
         "backgrounded-btn": !this.unbackground,
         "unbackgrounded-btn": this.unbackground,
         big: this.big,
+        mini: this.mini,
+        [this.color]: true,
       };
     },
   },
@@ -77,5 +93,21 @@ export default {
   width: 2.5rem;
   height: 2.5rem;
   font-size: 2rem;
+}
+
+.mini {
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 0.7rem;
+}
+
+.warning {
+  background-color: var(--app-warning-color);
+  color: var(--app-warning-contrast-color);
+}
+
+.danger {
+  background-color: var(--app-danger-color);
+  color: var(--app-danger-contrast-color);
 }
 </style>
