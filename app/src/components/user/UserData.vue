@@ -2,7 +2,7 @@
   <section class="user-data">
     <div class="user-info">
       <div>
-        <base-button flat icon bottom-left-rounded>
+        <base-button icon bottom-left-rounded color="light">
           <font-awesome-icon icon="sign-out-alt" />
         </base-button>
       </div>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="user-buttons">
-      <base-button mini>
+      <base-button mini color="warning">
         <font-awesome-icon icon="redo" /> Refresh Drive
       </base-button>
       <base-button mini>
