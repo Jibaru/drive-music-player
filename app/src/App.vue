@@ -79,6 +79,12 @@ export default {
   --app-primary-contrast-color: white;
   --app-secondary-color: #ff4734;
   --app-secondary-contrast-color: white;
+  --app-danger-color: #8d1111;
+  --app-danger-contrast-color: white;
+  --app-warning-color: #ffc400;
+  --app-warning-contrast-color: #221b1b;
+  --app-light-color: #ffffffcc;
+  --app-light-contrast-color: #070606;
 
   /* Breakpoints */
   /* --app-sm: 576px;
