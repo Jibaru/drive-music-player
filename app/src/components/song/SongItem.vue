@@ -11,7 +11,10 @@
     <div class="actions">
       <ul>
         <li>
-          <base-icon-button :icon="favoriteIcon" />
+          <base-icon-button :icon="favoriteIcon" mini />
+        </li>
+        <li v-if="showDeleteButton">
+          <base-icon-button icon="trash-alt" mini color="danger" />
         </li>
       </ul>
       <base-button mini>
@@ -46,6 +49,11 @@ export default {
     duration: {
       type: Number,
       required: false,
+    },
+    showDeleteButton: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {
