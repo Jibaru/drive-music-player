@@ -26,19 +26,19 @@ export default {
           name: "Menu",
           text: "Menu",
           iconClass: "bars",
-          path: "/menu",
+          path: "/mobile/menu",
         },
         {
           name: "CurrentSong",
           text: "Song",
           iconClass: "music",
-          path: "/current-song",
+          path: "/mobile/current-song",
         },
         {
           name: "CurrentPlaylist",
           text: "Playlist",
           iconClass: "list",
-          path: "/current-playlist",
+          path: "/mobile/current-playlist",
         },
       ],
       selectedRouteName: null,
@@ -98,11 +98,5 @@ a:active,
 
 li {
   padding: 0.5rem;
-}
-
-@media (min-width: 576px) {
-  nav {
-    display: none;
-  }
 }
 </style>
