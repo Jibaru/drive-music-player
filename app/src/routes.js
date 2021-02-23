@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage.vue";
 import MenuPage from "./pages/MenuPage.vue";
 import CurrentSongPage from "./pages/CurrentSongPage.vue";
 import CurrentPlaylistPage from "./pages/CurrentPlaylistPage.vue";
+import MobilePage from "./pages/mobile/MobilePage.vue";
 
 /**
  * App Routes
@@ -31,19 +32,26 @@ const routes = [
     component: HomePage,
   },
   {
-    name: "Menu",
-    path: "/menu",
-    component: MenuPage,
-  },
-  {
-    name: "CurrentSong",
-    path: "/current-song",
-    component: CurrentSongPage,
-  },
-  {
-    name: "CurrentPlaylist",
-    path: "/current-playlist",
-    component: CurrentPlaylistPage,
+    name: "MobilePage",
+    path: "/mobile",
+    component: MobilePage,
+    children: [
+      {
+        name: "Menu",
+        path: "menu",
+        component: MenuPage,
+      },
+      {
+        name: "CurrentSong",
+        path: "current-song",
+        component: CurrentSongPage,
+      },
+      {
+        name: "CurrentPlaylist",
+        path: "current-playlist",
+        component: CurrentPlaylistPage,
+      },
+    ],
   },
 ];
 
