@@ -35,6 +35,7 @@ const routes = [
     name: "MobilePage",
     path: "/mobile",
     component: MobilePage,
+    redirect: "/mobile/menu",
     children: [
       {
         name: "Menu",
