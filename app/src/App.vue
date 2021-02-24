@@ -7,24 +7,37 @@
       :open-duration="globalSnackbar.duration"
       :open="globalSnackbar.isVisible"
     >
-      {{ globalSnackbar.message }}
+      {{ globalSnackBarMessage }}
     </base-snackbar>
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   data() {
     return {
       globalSnackbar: {
         duration: 3000,
         isVisible: false,
-        message: "Hello",
       },
     };
   },
+  computed: {
+    ...mapGetters(["globalSnackBarMessage"]),
+  },
+  watch: {
+    globalSnackBarMessage(newVal, oldVal) {
+      if (newVal !== null && newVal !== oldVal) {
+        this.globalSnackbar.isVisible = true;
+      }
+    },
+  },
   methods: {
+    ...mapActions(["disposeGlobalSnackbarMessage"]),
     onCloseSnackbar() {
       this.globalSnackbar.isVisible = false;
+      this.disposeGlobalSnackbarMessage();
     },
   },
 };
