@@ -1,6 +1,34 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+    <base-snackbar
+      v-if="globalSnackbar.isVisible"
+      @close="onCloseSnackbar"
+      :open-duration="globalSnackbar.duration"
+      :open="globalSnackbar.isVisible"
+    >
+      {{ globalSnackbar.message }}
+    </base-snackbar>
+  </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      globalSnackbar: {
+        duration: 3000,
+        isVisible: false,
+        message: "Hello",
+      },
+    };
+  },
+  methods: {
+    onCloseSnackbar() {
+      this.globalSnackbar.isVisible = false;
+    },
+  },
+};
+</script>
 <style>
 /* Font Families */
 @font-face {
@@ -40,4 +68,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+a {
+  color: var(--app-secondary-color);
+}
+
+/* App Styles */
 </style>
