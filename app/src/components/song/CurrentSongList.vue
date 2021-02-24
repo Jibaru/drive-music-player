@@ -79,6 +79,7 @@ export default {
 <style scoped>
 .current-song-list {
   height: 100%;
+  background-color: var(--app-primary-color);
 }
 
 .current-song-list nav {
