@@ -1,6 +1,7 @@
 import {
   loginService,
   preRegisterService,
+  registerService,
 } from "../../../services/auth.service.js";
 
 export default {
@@ -51,5 +52,39 @@ export default {
         }
       );
     }
+  },
+  async register(context, { username, email, password, pin }) {
+    try {
+      const data = await registerService({
+        username,
+        email,
+        password,
+        pin,
+      });
+
+      context.commit("setIsPreRegistered", { val: false });
+      context.commit("setCompleteRegister", { val: true });
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        {
+          message: `User ${data.user.username} succesfully registered`,
+        },
+        {
+          root: true,
+        }
+      );
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        {
+          root: true,
+        }
+      );
+    }
+  },
+  newRegister(context) {
+    context.commit("setCompleteRegister", { val: false });
+    context.commit("setIsPreRegistered", { val: false });
   },
 };

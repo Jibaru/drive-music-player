@@ -12,4 +12,7 @@ export default {
   isPreRegistered(state) {
     return state.isPreRegistered;
   },
+  registered(state) {
+    return state.registered;
+  },
 };

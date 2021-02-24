@@ -12,6 +12,7 @@ export default {
       email: null,
       role: null,
       isPreRegistered: false,
+      registered: false,
     };
   },
   mutations,

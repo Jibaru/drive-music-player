@@ -11,4 +11,7 @@ export default {
   setIsPreRegistered(state, { val }) {
     state.isPreRegistered = val;
   },
+  setCompleteRegister(state, { val }) {
+    state.registered = val;
+  },
 };
