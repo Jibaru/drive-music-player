@@ -8,4 +8,7 @@ export default {
     state.email = email;
     state.role = role;
   },
+  setIsPreRegistered(state, { val }) {
+    state.isPreRegistered = val;
+  },
 };

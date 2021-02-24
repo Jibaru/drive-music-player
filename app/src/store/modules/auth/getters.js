@@ -9,4 +9,7 @@ export default {
       role: state.role,
     };
   },
+  isPreRegistered(state) {
+    return state.isPreRegistered;
+  },
 };
