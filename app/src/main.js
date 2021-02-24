@@ -5,6 +5,7 @@ import router from "./routes.js";
 
 import BaseButton from "./components/ui/BaseButton.vue";
 import BaseIconButton from "./components/ui/BaseIconButton.vue";
+import BaseSnackbar from "./components/ui/BaseSnackbar.vue";
 
 import { FontAwesomeIcon } from "./plugins/fortawesome.js";
 
@@ -15,5 +16,6 @@ app.use(router);
 app.component("base-button", BaseButton);
 app.component("base-icon-button", BaseIconButton);
 app.component("font-awesome-icon", FontAwesomeIcon);
+app.component("base-snackbar", BaseSnackbar);
 
 app.mount("#app");
