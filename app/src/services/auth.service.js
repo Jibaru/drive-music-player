@@ -1,5 +1,5 @@
 import { createFormUrlEncoded } from "../utils/fetch.utils.js";
-import { LOGIN } from "../config/api-uri.js";
+import { LOGIN, PRE_REGISTER } from "../config/api-uri.js";
 
 const loginService = async (username, password) => {
   const response = await fetch(process.env.VUE_APP_API_BASE + LOGIN, {
@@ -20,4 +20,26 @@ const loginService = async (username, password) => {
   }
 };
 
-export { loginService };
+const preRegisterService = async (username, email, password) => {
+  const response = await fetch(process.env.VUE_APP_API_BASE + PRE_REGISTER, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: createFormUrlEncoded({
+      username,
+      email,
+      password,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    return data;
+  } else {
+    throw new Error(data.message);
+  }
+};
+
+export { loginService, preRegisterService };
