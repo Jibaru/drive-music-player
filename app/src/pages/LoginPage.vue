@@ -2,18 +2,35 @@
   <main>
     <div class="card">
       <h1>Drive Music Player</h1>
-      <form action="">
+      <form @submit.prevent="login">
         <div class="form-control">
           <label for="username">Username</label>
-          <input type="text" id="username" />
+          <input
+            type="text"
+            id="username"
+            v-model.trim="username.val"
+            @keyup="isValidForm()"
+          />
+          <span v-show="!username.isValid" class="error">
+            Username is invalid
+          </span>
         </div>
         <div class="form-control">
           <label for="password">Password</label>
-          <input type="password" id="password" />
+          <input
+            type="password"
+            id="password"
+            v-model.trim="password.val"
+            @keyup="isValidForm()"
+          />
+          <span v-show="!password.isValid" class="error">
+            Password is invalid
+          </span>
         </div>
-        <base-button d-block>
+        <base-button v-if="!isLoading" d-block>
           <b>Start!</b>
         </base-button>
+        <base-spinner v-else centered />
         <div class="card-footer">
           <router-link to="/register">Register new account</router-link>
         </div>
@@ -28,6 +45,59 @@
     </footer>
   </main>
 </template>
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  data() {
+    return {
+      username: {
+        val: "",
+        isValid: true,
+      },
+      password: {
+        val: "",
+        isValid: true,
+      },
+      isLoading: false,
+    };
+  },
+  methods: {
+    ...mapActions({
+      loginAction: "auth/login",
+    }),
+    isValidForm() {
+      if (this.username.val === "") {
+        this.username.isValid = false;
+      } else {
+        this.username.isValid = true;
+      }
+
+      if (this.password.val === "") {
+        this.password.isValid = false;
+      } else {
+        this.password.isValid = true;
+      }
+
+      return this.username.isValid && this.password.isValid;
+    },
+    async login() {
+      if (!this.isValidForm()) {
+        return;
+      }
+
+      this.isLoading = true;
+
+      await this.loginAction({
+        username: this.username.val,
+        password: this.password.val,
+      });
+
+      this.isLoading = false;
+    },
+  },
+};
+</script>
 <style scoped>
 main {
   width: 100%;
@@ -80,6 +150,12 @@ main {
 .form-control input:active {
   outline: none;
   box-shadow: 0 0 2px 1px var(--app-secondary-color);
+}
+
+.form-control .error {
+  font-size: 0.8rem;
+  text-align: end;
+  color: var(--app-danger-color);
 }
 
 .card-footer {
