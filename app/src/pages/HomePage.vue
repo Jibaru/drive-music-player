@@ -1,26 +1,41 @@
 <template>
-  <main>
-    <the-menu class="menu" />
-    <current-song class="current-song" />
-    <current-song-list class="current-song-list" />
-  </main>
+  <div class="home">
+    <main v-if="hasRootDriveKey">
+      <the-menu class="menu" />
+      <current-song class="current-song" />
+      <current-song-list class="current-song-list" />
+    </main>
+    <div v-else>
+      <change-root-drive-key />
+    </div>
+  </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 import TheMenu from "../components/menu/TheMenu.vue";
 import CurrentSong from "../components/song/CurrentSong.vue";
 import CurrentSongList from "../components/song/CurrentSongList.vue";
+import ChangeRootDriveKey from "../components/user/ChangeRootDriveKey.vue";
 
 export default {
   components: {
     TheMenu,
     CurrentSong,
     CurrentSongList,
+    ChangeRootDriveKey,
+  },
+  computed: {
+    ...mapGetters({
+      hasRootDriveKey: "auth/hasRootDriveKey",
+    }),
   },
 };
 </script>
 
 <style scoped>
-body {
+body,
+.home {
   width: 100%;
 }
 
