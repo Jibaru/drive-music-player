@@ -1,7 +1,7 @@
 <template>
-  <ul class="song-list">
+  <ul class="song-list" v-if="!isLoading && !favoriteSongsEmpty">
     <song-item
-      v-for="song in songList"
+      v-for="song in favoriteSongs"
       :key="song.id"
       :song-id="song.id"
       :song-name="song.name"
@@ -11,53 +11,25 @@
       :duration="song.duration"
     />
   </ul>
+  <base-spinner v-else-if="isLoading" centered full-height />
+  <div v-else-if="favoriteSongsEmpty" class="empty-message">
+    Empty
+  </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import SongItem from "./SongItem.vue";
 
 export default {
   components: {
     SongItem,
   },
-  data() {
-    return {
-      songList: [
-        {
-          id: 1,
-          name: "Song 1",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 0,
-          isFavorite: true,
-          duration: 1025,
-        },
-        {
-          id: 2,
-          name: "Song 2",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 235,
-          isFavorite: true,
-          duration: null,
-        },
-        {
-          id: 3,
-          name:
-            "A song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 718,
-          isFavorite: true,
-          duration: 325,
-        },
-        {
-          id: 4,
-          name:
-            "Another song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://i.stack.imgur.com/ZN6oD.jpg",
-          timesPlayed: 4,
-          isFavorite: true,
-          duration: null,
-        },
-      ],
-    };
+  computed: {
+    ...mapGetters({
+      favoriteSongs: "song/favoriteSongs",
+      favoriteSongsEmpty: "song/favoriteSongsEmpty",
+      isLoading: "song/fetchingSongs",
+    }),
   },
 };
 </script>
@@ -66,6 +38,15 @@ export default {
   display: block;
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 100%;
+}
+
+.empty-message {
+  color: var(--app-primary-contrast-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 }
 </style>
