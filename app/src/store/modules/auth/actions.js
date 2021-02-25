@@ -87,4 +87,7 @@ export default {
     context.commit("setCompleteRegister", { val: false });
     context.commit("setIsPreRegistered", { val: false });
   },
+  setAuthUserRootDriveKey(context, { rootDriveKey }) {
+    context.commit("setRootDriveKey", { rootDriveKey });
+  },
 };
