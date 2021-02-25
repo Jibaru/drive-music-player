@@ -11,7 +11,7 @@
     <div class="actions">
       <ul>
         <li>
-          <base-icon-button :icon="favoriteIcon" mini />
+          <base-icon-button :icon="favoriteIcon" mini @click="emitFavorite" />
         </li>
         <li v-if="showDeleteButton">
           <base-icon-button icon="trash-alt" mini color="danger" />
@@ -25,6 +25,7 @@
 </template>
 <script>
 export default {
+  emits: ["clickFavoriteIcon"],
   props: {
     songId: {
       type: Number,
@@ -82,6 +83,9 @@ export default {
         seconds = secDuration;
       }
       return `${minutes}:${seconds <= 9 ? "0" + seconds : seconds}`;
+    },
+    emitFavorite() {
+      this.$emit("clickFavoriteIcon", !this.isFavorite);
     },
   },
 };
