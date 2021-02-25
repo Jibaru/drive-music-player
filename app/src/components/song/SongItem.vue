@@ -1,7 +1,7 @@
 <template>
   <li class="song-item">
     <div>
-      <img :src="imageUrl" alt="song-image" />
+      <img :src="songImage" alt="song-image" />
     </div>
     <div class="info">
       <h2>{{ songName }}</h2>
@@ -59,6 +59,9 @@ export default {
   computed: {
     favoriteIcon() {
       return this.isFavorite ? ["fas", "heart"] : ["far", "heart"];
+    },
+    songImage() {
+      return this.imageUrl || require("@/assets/img/default-song-image.jpg");
     },
     mappedDuration() {
       let parsedDuration = "--:--";
