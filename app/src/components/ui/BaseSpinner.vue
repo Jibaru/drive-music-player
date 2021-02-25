@@ -1,5 +1,8 @@
 <template>
-  <div class="container" :class="{ center: centered }">
+  <div
+    class="container"
+    :class="{ center: centered, 'full-height': fullHeight }"
+  >
     <div class="loader" :style="styles"></div>
   </div>
 </template>
@@ -12,6 +15,11 @@ export default {
       default: 3,
     },
     centered: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    fullHeight: {
       type: Boolean,
       required: false,
       default: false,
@@ -52,5 +60,10 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.full-height {
+  height: 100%;
 }
 </style>
