@@ -9,6 +9,7 @@
       :times-played="song.timesPlayed"
       :is-favorite="song.isFavorite"
       :duration="song.duration"
+      @click-favorite-icon="toggleFavorite($event, song.id)"
     />
   </ul>
   <base-spinner v-else-if="isLoading" centered full-height />
@@ -17,7 +18,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import SongItem from "./SongItem.vue";
 
 export default {
@@ -30,6 +31,14 @@ export default {
       songsEmpty: "song/songsEmpty",
       isLoading: "song/fetchingSongs",
     }),
+  },
+  methods: {
+    ...mapActions({
+      toggleSongFavorite: "song/toggleSongFavorite",
+    }),
+    toggleFavorite(val, songId) {
+      this.toggleSongFavorite({ songId, val });
+    },
   },
 };
 </script>
