@@ -24,7 +24,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["globalSnackBarMessage"]),
+    ...mapGetters({
+      globalSnackBarMessage: "globalSnackBarMessage",
+      hasRootDriveKey: "auth/hasRootDriveKey",
+    }),
   },
   watch: {
     globalSnackBarMessage(newVal, oldVal) {
@@ -32,9 +35,17 @@ export default {
         this.globalSnackbar.isVisible = true;
       }
     },
+    hasRootDriveKey(newVal) {
+      if (newVal) {
+        this.fetchSongs();
+      }
+    },
   },
   methods: {
-    ...mapActions(["disposeGlobalSnackbarMessage"]),
+    ...mapActions({
+      disposeGlobalSnackbarMessage: "disposeGlobalSnackbarMessage",
+      fetchSongs: "song/fetchSongs",
+    }),
     onCloseSnackbar() {
       this.globalSnackbar.isVisible = false;
       this.disposeGlobalSnackbarMessage();

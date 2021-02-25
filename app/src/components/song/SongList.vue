@@ -12,10 +12,12 @@
     />
   </ul>
   <base-spinner v-else-if="isLoading" centered full-height />
-  <div v-else-if="songsEmpty">Empty</div>
+  <div v-else-if="songsEmpty" class="empty-message">
+    Empty
+  </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import SongItem from "./SongItem.vue";
 
 export default {
@@ -25,27 +27,9 @@ export default {
   computed: {
     ...mapGetters({
       songs: "song/allSongs",
-      hasRootDriveKey: "auth/hasRootDriveKey",
       songsEmpty: "song/songsEmpty",
       isLoading: "song/fetchingSongs",
     }),
-  },
-  watch: {
-    hasRootDriveKey(newVal) {
-      if (newVal) {
-        this.fetchSongs();
-      }
-    },
-  },
-  methods: {
-    ...mapActions({
-      fetchSongs: "song/fetchSongs",
-    }),
-  },
-  mounted() {
-    if (this.hasRootDriveKey) {
-      this.fetchSongs();
-    }
   },
 };
 </script>
@@ -54,6 +38,15 @@ export default {
   display: block;
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 100%;
+}
+
+.empty-message {
+  color: var(--app-primary-contrast-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 }
 </style>
