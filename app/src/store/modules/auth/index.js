@@ -11,6 +11,7 @@ export default {
       username: null,
       email: null,
       role: null,
+      rootDriveKey: null,
       isPreRegistered: false,
       registered: false,
     };

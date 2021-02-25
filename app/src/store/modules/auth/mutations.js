@@ -2,11 +2,12 @@ export default {
   setToken(state, { token }) {
     state.token = token;
   },
-  setUserAuth(state, { id, username, email, role }) {
+  setUserAuth(state, { id, username, email, role, rootDriveKey }) {
     state.userId = id;
     state.username = username;
     state.email = email;
     state.role = role;
+    state.rootDriveKey = rootDriveKey;
   },
   setIsPreRegistered(state, { val }) {
     state.isPreRegistered = val;
