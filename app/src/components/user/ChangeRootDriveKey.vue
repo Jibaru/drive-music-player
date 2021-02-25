@@ -12,7 +12,7 @@
         <li>Copy the last path of the url (this is your <b>key</b>)</li>
         <li>Paste the copied <b>key</b> into this form</li>
       </ol>
-      <form @submit.prevent="login">
+      <form @submit.prevent="submitForm">
         <div class="form-control">
           <label for="root-drive-key">Drive Root Folder Key</label>
           <input
@@ -33,6 +33,8 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -42,6 +44,30 @@ export default {
       },
       isLoading: false,
     };
+  },
+  methods: {
+    ...mapActions({
+      updateRootDriveKey: "user/updateRootDriveKey",
+    }),
+    isValidForm() {
+      if (this.rootDriveKey.val === "") {
+        this.rootDriveKey.isValid = false;
+      } else {
+        this.rootDriveKey.isValid = true;
+      }
+      return this.rootDriveKey.isValid;
+    },
+    async submitForm() {
+      if (!this.isValidForm()) {
+        return;
+      }
+
+      this.isLoading = true;
+      await this.updateRootDriveKey({
+        rootDriveKey: this.rootDriveKey.val,
+      });
+      this.isLoading = false;
+    },
   },
 };
 </script>
