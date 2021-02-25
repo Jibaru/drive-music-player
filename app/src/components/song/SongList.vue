@@ -1,7 +1,7 @@
 <template>
-  <ul class="song-list">
+  <ul class="song-list" v-if="!isLoading && !songsEmpty">
     <song-item
-      v-for="song in songList"
+      v-for="song in songs"
       :key="song.id"
       :song-id="song.id"
       :song-name="song.name"
@@ -11,53 +11,41 @@
       :duration="song.duration"
     />
   </ul>
+  <base-spinner v-else-if="isLoading" centered full-height />
+  <div v-else-if="songsEmpty">Empty</div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import SongItem from "./SongItem.vue";
 
 export default {
   components: {
     SongItem,
   },
-  data() {
-    return {
-      songList: [
-        {
-          id: 1,
-          name: "Song 1",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 0,
-          isFavorite: false,
-          duration: 1025,
-        },
-        {
-          id: 2,
-          name: "Song 2",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 235,
-          isFavorite: false,
-          duration: null,
-        },
-        {
-          id: 3,
-          name:
-            "A song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 718,
-          isFavorite: true,
-          duration: 325,
-        },
-        {
-          id: 4,
-          name:
-            "Another song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://i.stack.imgur.com/ZN6oD.jpg",
-          timesPlayed: 4,
-          isFavorite: false,
-          duration: null,
-        },
-      ],
-    };
+  computed: {
+    ...mapGetters({
+      songs: "song/allSongs",
+      hasRootDriveKey: "auth/hasRootDriveKey",
+      songsEmpty: "song/songsEmpty",
+      isLoading: "song/fetchingSongs",
+    }),
+  },
+  watch: {
+    hasRootDriveKey(newVal) {
+      if (newVal) {
+        this.fetchSongs();
+      }
+    },
+  },
+  methods: {
+    ...mapActions({
+      fetchSongs: "song/fetchSongs",
+    }),
+  },
+  mounted() {
+    if (this.hasRootDriveKey) {
+      this.fetchSongs();
+    }
   },
 };
 </script>
