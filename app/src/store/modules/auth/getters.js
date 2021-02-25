@@ -11,6 +11,9 @@ export default {
       rootDriveKey: state.rootDriveKey,
     };
   },
+  userId(state) {
+    return state.userId;
+  },
   isPreRegistered(state) {
     return state.isPreRegistered;
   },
