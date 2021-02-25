@@ -46,7 +46,7 @@
   </main>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -61,6 +61,23 @@ export default {
       },
       isLoading: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
+  },
+  watch: {
+    isAuthenticated(newVal) {
+      if (newVal) {
+        const windowWidth = window.innerWidth;
+        if (windowWidth <= 576) {
+          this.$router.push("/mobile");
+        } else {
+          this.$router.push("/home");
+        }
+      }
+    },
   },
   methods: {
     ...mapActions({
