@@ -15,4 +15,7 @@ export default {
   setCompleteRegister(state, { val }) {
     state.registered = val;
   },
+  setRootDriveKey(state, { rootDriveKey }) {
+    state.rootDriveKey = rootDriveKey;
+  },
 };
