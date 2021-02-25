@@ -19,4 +19,7 @@ export default {
       context.commit("setIsFetching", { val: false });
     }
   },
+  toggleSongFavorite(context, { songId, val }) {
+    context.commit("toggleSongFavorite", { songId, val });
+  },
 };
