@@ -5,10 +5,10 @@
       <p>10 songs</p>
     </div>
     <div class="actions">
-      <base-button mini color="danger" @click="deleteBtn">
+      <base-button mini color="danger" @click="$emit('delete')">
         <font-awesome-icon icon="trash-alt" /> Delete
       </base-button>
-      <base-button mini>
+      <base-button mini @click="$emit('add-song')">
         <font-awesome-icon icon="plus" /> Add song
       </base-button>
     </div>
@@ -16,6 +16,7 @@
 </template>
 <script>
 export default {
+  emits: ["delete", "add-song"],
   props: {
     playlistId: {
       type: Number,
@@ -28,11 +29,6 @@ export default {
     countSongs: {
       type: Number,
       required: true,
-    },
-  },
-  methods: {
-    deleteBtn() {
-      console.log("Delete");
     },
   },
 };
