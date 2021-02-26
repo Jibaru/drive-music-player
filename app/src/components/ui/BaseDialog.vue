@@ -40,7 +40,7 @@ export default {
       required: false,
       default: "medium",
       validator: (val) => {
-        const values = ["small", "medium", "large"];
+        const values = ["tiny", "small", "medium", "large"];
         return values.find((v) => v !== val);
       },
     },
@@ -107,6 +107,10 @@ menu {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.tiny {
+  max-width: 300px;
 }
 
 .small {
