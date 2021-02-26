@@ -9,6 +9,7 @@ import BaseIconButton from "./components/ui/BaseIconButton.vue";
 import BaseSnackbar from "./components/ui/BaseSnackbar.vue";
 import BaseSpinner from "./components/ui/BaseSpinner.vue";
 import BaseDialog from "./components/ui/BaseDialog.vue";
+import BaseConfirmDialog from "./components/ui/BaseConfirmDialog.vue";
 
 import { FontAwesomeIcon } from "./plugins/fortawesome.js";
 
@@ -23,5 +24,6 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 app.component("base-snackbar", BaseSnackbar);
 app.component("base-spinner", BaseSpinner);
 app.component("base-dialog", BaseDialog);
+app.component("base-confirm-dialog", BaseConfirmDialog);
 
 app.mount("#app");
