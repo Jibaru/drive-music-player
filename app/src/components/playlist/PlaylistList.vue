@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <div class="actions">
-      <base-button mini>Create New Playlist</base-button>
+      <new-playlist-dialog
+        :open="isNewPlayistDialogOpen"
+        @close="closeNewPlaylistDialog"
+      />
+      <base-button mini @click="openNewPlaylistDialog">
+        Create New Playlist
+      </base-button>
     </div>
     <ul class="playlists-list" v-if="!isLoading && !playlistsEmpty">
       <playlist-item
@@ -21,10 +27,17 @@
 <script>
 import { mapGetters } from "vuex";
 import PlaylistItem from "./PlaylistItem.vue";
+import NewPlaylistDialog from "./NewPlaylistDialog.vue";
 
 export default {
   components: {
     PlaylistItem,
+    NewPlaylistDialog,
+  },
+  data() {
+    return {
+      isNewPlayistDialogOpen: false,
+    };
   },
   computed: {
     ...mapGetters({
@@ -32,6 +45,14 @@ export default {
       playlistsEmpty: "playlist/playlistsEmpty",
       isLoading: "playlist/fetchingPlaylists",
     }),
+  },
+  methods: {
+    openNewPlaylistDialog() {
+      this.isNewPlayistDialogOpen = true;
+    },
+    closeNewPlaylistDialog() {
+      this.isNewPlayistDialogOpen = false;
+    },
   },
 };
 </script>
