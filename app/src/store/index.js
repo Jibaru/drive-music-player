@@ -3,12 +3,14 @@ import { createStore } from "vuex";
 import authModule from "./modules/auth/index";
 import userModule from "./modules/user/index";
 import songModule from "./modules/song/index";
+import playlistModule from "./modules/playlist/index";
 
 const store = createStore({
   modules: {
     auth: authModule,
     user: userModule,
     song: songModule,
+    playlist: playlistModule,
   },
   state() {
     return {
