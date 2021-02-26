@@ -16,27 +16,41 @@
         :playlist-id="playlist.id"
         :playlist-name="playlist.name"
         :count-songs="10"
+        @delete="openDeletePlaylistDialog(playlist.id)"
       />
     </ul>
     <base-spinner v-else-if="isLoading" centered full-height />
     <div v-else-if="playlistsEmpty" class="empty-message">
       Empty
     </div>
+    <delete-playlist-dialog
+      :open="isDeletePlaylistDialogOpen"
+      @close="closeDeletePlaylistDialog"
+      :playlistName="playlistToDelete.name"
+      :playlistId="playlistToDelete.id"
+    />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import PlaylistItem from "./PlaylistItem.vue";
 import NewPlaylistDialog from "./NewPlaylistDialog.vue";
+import DeletePlaylistDialog from "./DeletePlaylistDialog.vue";
 
 export default {
   components: {
     PlaylistItem,
     NewPlaylistDialog,
+    DeletePlaylistDialog,
   },
   data() {
     return {
       isNewPlayistDialogOpen: false,
+      isDeletePlaylistDialogOpen: false,
+      playlistToDelete: {
+        id: null,
+        name: null,
+      },
     };
   },
   computed: {
@@ -52,6 +66,15 @@ export default {
     },
     closeNewPlaylistDialog() {
       this.isNewPlayistDialogOpen = false;
+    },
+    openDeletePlaylistDialog(id) {
+      const playlist = this.playlists.find((p) => p.id == id);
+      this.playlistToDelete.name = playlist.name;
+      this.playlistToDelete.id = playlist.id;
+      this.isDeletePlaylistDialogOpen = true;
+    },
+    closeDeletePlaylistDialog() {
+      this.isDeletePlaylistDialogOpen = false;
     },
   },
 };
