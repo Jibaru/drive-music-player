@@ -11,7 +11,12 @@
     <div class="actions">
       <ul>
         <li>
-          <base-icon-button :icon="favoriteIcon" mini @click="emitFavorite" />
+          <base-icon-button
+            :icon="favoriteIcon"
+            mini
+            @click="emitFavorite"
+            :key="favoriteChangedTimes"
+          />
         </li>
         <li v-if="showDeleteButton">
           <base-icon-button icon="trash-alt" mini color="danger" />
@@ -57,6 +62,11 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      favoriteChangedTimes: 0,
+    };
+  },
   computed: {
     favoriteIcon() {
       return this.isFavorite ? ["fas", "heart"] : ["far", "heart"];
@@ -70,6 +80,11 @@ export default {
         parsedDuration = this.mapDuration(this.duration);
       }
       return parsedDuration;
+    },
+  },
+  watch: {
+    isFavorite() {
+      this.favoriteChangedTimes++;
     },
   },
   methods: {
