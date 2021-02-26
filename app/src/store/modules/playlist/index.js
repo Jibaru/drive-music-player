@@ -8,6 +8,7 @@ export default {
     return {
       playlists: [],
       fetchingPlaylists: false,
+      creatingPlaylist: false,
     };
   },
   mutations,
