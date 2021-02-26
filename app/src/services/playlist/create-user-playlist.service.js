@@ -1,7 +1,7 @@
 import { createFormUrlEncoded } from "../../utils/fetch.utils.js";
 import { CREATE_USER_PLAYLIST } from "../../config/api-uri.js";
 
-const getUserPlaylistsService = async (name, userId, token) => {
+const createUserPlaylistService = async (name, userId, token) => {
   const uri = CREATE_USER_PLAYLIST.replace(":userId", `${userId}`);
   const response = await fetch(process.env.VUE_APP_API_BASE + uri, {
     method: "POST",
@@ -21,4 +21,4 @@ const getUserPlaylistsService = async (name, userId, token) => {
   }
 };
 
-export default getUserPlaylistsService;
+export default createUserPlaylistService;
