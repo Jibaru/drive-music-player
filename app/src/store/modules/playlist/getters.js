@@ -8,4 +8,7 @@ export default {
   fetchingPlaylists(state) {
     return state.fetchingPlaylists;
   },
+  creatingPlaylist(state) {
+    return state.creatingPlaylist;
+  },
 };
