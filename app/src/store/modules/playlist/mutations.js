@@ -5,4 +5,7 @@ export default {
   setIsFetching(state, { val }) {
     state.fetchingPlaylists = val;
   },
+  setIsCreatingPlaylist(state, { val }) {
+    state.creatingPlaylist = val;
+  },
 };
