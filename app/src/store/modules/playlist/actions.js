@@ -1,4 +1,5 @@
 import getUserPlaylistsService from "../../../services/playlist/get-user-playlists.service.js";
+import createUserPlaylistService from "../../../services/playlist/create-user-playlist.service.js";
 
 export default {
   async fetchPlaylists(context) {
@@ -17,6 +18,29 @@ export default {
       );
     } finally {
       context.commit("setIsFetching", { val: false });
+    }
+  },
+  async createPlaylist(context, { name }) {
+    context.commit("setIsCreatingPlaylist", { val: true });
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+
+      const message = await createUserPlaylistService(name, userId, token);
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message },
+        { root: true }
+      );
+      context.dispatch("fetchPlaylists");
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    } finally {
+      context.commit("setIsCreatingPlaylist", { val: false });
     }
   },
 };
