@@ -8,4 +8,7 @@ export default {
   setIsCreatingPlaylist(state, { val }) {
     state.creatingPlaylist = val;
   },
+  setIsDeletingPlaylist(state, { val }) {
+    state.deletingPlaylist = val;
+  },
 };

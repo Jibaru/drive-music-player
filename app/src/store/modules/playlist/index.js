@@ -9,6 +9,7 @@ export default {
       playlists: [],
       fetchingPlaylists: false,
       creatingPlaylist: false,
+      deletingPlaylist: false,
     };
   },
   mutations,

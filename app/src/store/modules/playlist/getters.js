@@ -11,4 +11,7 @@ export default {
   creatingPlaylist(state) {
     return state.creatingPlaylist;
   },
+  deletingPlaylist(state) {
+    return state.deletingPlaylist;
+  },
 };

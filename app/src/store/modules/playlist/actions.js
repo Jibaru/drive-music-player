@@ -1,5 +1,6 @@
 import getUserPlaylistsService from "../../../services/playlist/get-user-playlists.service.js";
 import createUserPlaylistService from "../../../services/playlist/create-user-playlist.service.js";
+import deleteUserPlaylistService from "../../../services/playlist/delete-user-playlist.service.js";
 
 export default {
   async fetchPlaylists(context) {
@@ -41,6 +42,33 @@ export default {
       );
     } finally {
       context.commit("setIsCreatingPlaylist", { val: false });
+    }
+  },
+  async deletePlaylist(context, { playlistId }) {
+    context.commit("setIsDeletingPlaylist", { val: true });
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+
+      const message = await deleteUserPlaylistService(
+        userId,
+        playlistId,
+        token
+      );
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message },
+        { root: true }
+      );
+      context.dispatch("fetchPlaylists");
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    } finally {
+      context.commit("setIsDeletingPlaylist", { val: false });
     }
   },
 };
