@@ -1,4 +1,4 @@
-const { Playlist } = require("../../../db/models/index");
+const { Playlist, Song } = require("../../../db/models/index");
 
 const getAllPlaylistsService = async ({ userId }) => {
   const playlistsFinded = await Playlist.findAll({
@@ -7,6 +7,14 @@ const getAllPlaylistsService = async ({ userId }) => {
         userId,
       }),
     },
+    include: [
+      {
+        model: Song,
+        as: "songs",
+        attributes: ["id"],
+        through: { attributes: [] },
+      },
+    ],
   });
 
   if (!playlistsFinded) {
