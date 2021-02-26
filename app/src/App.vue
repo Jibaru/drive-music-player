@@ -38,6 +38,7 @@ export default {
     hasRootDriveKey(newVal) {
       if (newVal) {
         this.fetchSongs();
+        this.fetchPlaylists();
       }
     },
   },
@@ -45,6 +46,7 @@ export default {
     ...mapActions({
       disposeGlobalSnackbarMessage: "disposeGlobalSnackbarMessage",
       fetchSongs: "song/fetchSongs",
+      fetchPlaylists: "playlist/fetchPlaylists",
     }),
     onCloseSnackbar() {
       this.globalSnackbar.isVisible = false;
