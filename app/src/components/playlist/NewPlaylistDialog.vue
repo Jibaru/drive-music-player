@@ -20,6 +20,8 @@
   </base-dialog>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   emits: ["close"],
   props: {
@@ -36,11 +38,44 @@ export default {
         val: "",
         isValid: true,
       },
-      isLoading: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      isLoading: "playlist/creatingPlaylist",
+    }),
+  },
+  watch: {
+    open() {
+      this.clearForm();
+    },
+  },
   methods: {
+    ...mapActions({
+      createPlaylist: "playlist/createPlaylist",
+    }),
     close() {
+      this.$emit("close");
+    },
+    clearForm() {
+      this.playlistName.val = "";
+      this.playlistName.isValid = true;
+    },
+    isValidForm() {
+      if (this.playlistName.val === "") {
+        this.playlistName.isValid = false;
+      } else {
+        this.playlistName.isValid = true;
+      }
+      return this.playlistName.isValid;
+    },
+    async submitForm() {
+      if (!this.isValidForm()) {
+        return;
+      }
+      await this.createPlaylist({
+        name: this.playlistName.val,
+      });
       this.$emit("close");
     },
   },
