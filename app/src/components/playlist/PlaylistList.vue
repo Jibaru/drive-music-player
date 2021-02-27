@@ -15,8 +15,9 @@
         :key="playlist.id"
         :playlist-id="playlist.id"
         :playlist-name="playlist.name"
-        :count-songs="10"
+        :count-songs="playlist.songs.length"
         @delete="openDeletePlaylistDialog(playlist.id)"
+        @add-song="openAddSongsToPlaylistDialog(playlist.id)"
       />
     </ul>
     <base-spinner v-else-if="isLoading" centered full-height />
@@ -26,8 +27,14 @@
     <delete-playlist-dialog
       :open="isDeletePlaylistDialogOpen"
       @close="closeDeletePlaylistDialog"
-      :playlistName="playlistToDelete.name"
-      :playlistId="playlistToDelete.id"
+      :playlistName="selectedPlaylist.name"
+      :playlistId="selectedPlaylist.id"
+    />
+    <add-songs-to-playlist-dialog
+      :open="isAddSongsToPlaylistDialogOpen"
+      @close="closeAddSongsToPlaylistDialog"
+      :playlistName="selectedPlaylist.name"
+      :playlistId="selectedPlaylist.id"
     />
   </div>
 </template>
@@ -36,18 +43,21 @@ import { mapGetters } from "vuex";
 import PlaylistItem from "./PlaylistItem.vue";
 import NewPlaylistDialog from "./NewPlaylistDialog.vue";
 import DeletePlaylistDialog from "./DeletePlaylistDialog.vue";
+import AddSongsToPlaylistDialog from "./AddSongsToPlaylistDialog.vue";
 
 export default {
   components: {
     PlaylistItem,
     NewPlaylistDialog,
     DeletePlaylistDialog,
+    AddSongsToPlaylistDialog,
   },
   data() {
     return {
       isNewPlayistDialogOpen: false,
       isDeletePlaylistDialogOpen: false,
-      playlistToDelete: {
+      isAddSongsToPlaylistDialogOpen: false,
+      selectedPlaylist: {
         id: null,
         name: null,
       },
@@ -61,6 +71,11 @@ export default {
     }),
   },
   methods: {
+    findAndSetPlaylist(id) {
+      const playlist = this.playlists.find((p) => p.id == id);
+      this.selectedPlaylist.name = playlist.name;
+      this.selectedPlaylist.id = playlist.id;
+    },
     openNewPlaylistDialog() {
       this.isNewPlayistDialogOpen = true;
     },
@@ -68,13 +83,18 @@ export default {
       this.isNewPlayistDialogOpen = false;
     },
     openDeletePlaylistDialog(id) {
-      const playlist = this.playlists.find((p) => p.id == id);
-      this.playlistToDelete.name = playlist.name;
-      this.playlistToDelete.id = playlist.id;
+      this.findAndSetPlaylist(id);
       this.isDeletePlaylistDialogOpen = true;
     },
     closeDeletePlaylistDialog() {
       this.isDeletePlaylistDialogOpen = false;
+    },
+    openAddSongsToPlaylistDialog(id) {
+      this.findAndSetPlaylist(id);
+      this.isAddSongsToPlaylistDialogOpen = true;
+    },
+    closeAddSongsToPlaylistDialog() {
+      this.isAddSongsToPlaylistDialogOpen = false;
     },
   },
 };
