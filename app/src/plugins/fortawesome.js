@@ -18,6 +18,7 @@ import {
   faBackward as fasBackward,
   faForward as fasForward,
   faVolumeDown as fasVolumeDown,
+  faPause as fasPause,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -42,6 +43,7 @@ library.add([
   fasBackward,
   fasForward,
   fasVolumeDown,
+  fasPause,
 ]);
 
 export { FontAwesomeIcon };
