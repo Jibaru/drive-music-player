@@ -14,6 +14,7 @@
 </template>
 <script>
 export default {
+  emits: ["changed-volume"],
   props: {
     volume: {
       type: Number,
@@ -38,7 +39,7 @@ export default {
       const bcr = this.$refs["volume-bar-container"].getBoundingClientRect();
       const percentage = ((e.clientY - bcr.bottom) / bcr.height) * -100;
       this.setVolume(percentage);
-      this.$emit("changed-volume", percentage.toFixed(0));
+      this.$emit("changed-volume", parseInt(percentage.toFixed(0)));
     },
     setVolume(volume) {
       this.$refs["volume-bar"].style.height = `${volume}%`;
