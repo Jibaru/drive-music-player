@@ -11,7 +11,25 @@
       </div>
     </div>
     <div class="user-buttons">
-      <base-button mini color="warning">
+      <base-confirm-dialog
+        title="Refresh with Google Drive songs"
+        type="tiny"
+        :open="isRefreshDialogOpen"
+        @confirm="refreshUserDriveSongs"
+        @cancel="closeRefreshDialog"
+        :is-loading="refreshingDriveSongs"
+      >
+        <div>
+          <p>
+            Are you sure to refresh songs with google drive? <br />
+            The information will be synchronized with google drive. If any song
+            was deleted or hidden, all metadata of your user songs will be
+            deleted from the application. If new songs were added they will
+            appear.
+          </p>
+        </div>
+      </base-confirm-dialog>
+      <base-button mini color="warning" @click="openRefreshDialog">
         <font-awesome-icon icon="redo" /> Refresh Drive
       </base-button>
       <base-dialog
@@ -30,6 +48,7 @@
   </section>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import ChangeRootDriveKey from "./ChangeRootDriveKey.vue";
 
 export default {
@@ -38,10 +57,32 @@ export default {
   },
   data() {
     return {
+      isRefreshDialogOpen: false,
       isChangeRootDriveKeyOpen: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      refreshingDriveSongs: "user/refreshingDriveSongs",
+    }),
+  },
+  watch: {
+    refreshingDriveSongs(newVal) {
+      if (!newVal) {
+        this.closeRefreshDialog();
+      }
+    },
+  },
   methods: {
+    ...mapActions({
+      refreshDriveSongs: "user/refreshDriveSongs",
+    }),
+    openRefreshDialog() {
+      this.isRefreshDialogOpen = true;
+    },
+    closeRefreshDialog() {
+      this.isRefreshDialogOpen = false;
+    },
     openChangeRootDriveKeyDialog() {
       this.isChangeRootDriveKeyOpen = true;
     },
@@ -51,6 +92,9 @@ export default {
     closeChangeRootDialogAndRefresh() {
       this.closeChangeRootDriveKeyDialog();
       location.reload();
+    },
+    refreshUserDriveSongs() {
+      this.refreshDriveSongs();
     },
   },
 };
