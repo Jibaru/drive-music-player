@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-    <div class="card">
+  <div :class="{ main: fullPage }">
+    <div :class="{ card: fullPage }">
       <h1>Set the google drive root folder key</h1>
       <ol class="step-list">
         <li>
@@ -21,7 +21,7 @@
             v-model.trim="rootDriveKey.val"
           />
           <span v-show="!rootDriveKey.isValid" class="error">
-            Root Drive Key should not be blank
+            Root Drive Key should not be blank or same to current value
           </span>
         </div>
         <base-button v-if="!isLoading" d-block>
@@ -33,9 +33,17 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
+  emits: ["changedRootDriveKey"],
+  props: {
+    fullPage: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
   data() {
     return {
       rootDriveKey: {
@@ -45,12 +53,25 @@ export default {
       isLoading: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      storeRootDriveKey: "auth/rootDriveKey",
+    }),
+  },
+  watch: {
+    storeRootDriveKey() {
+      this.$emit("changedRootDriveKey");
+    },
+  },
   methods: {
     ...mapActions({
       updateRootDriveKey: "user/updateRootDriveKey",
     }),
     isValidForm() {
-      if (this.rootDriveKey.val === "") {
+      if (
+        this.rootDriveKey.val === "" ||
+        this.rootDriveKey.val === this.storeRootDriveKey
+      ) {
         this.rootDriveKey.isValid = false;
       } else {
         this.rootDriveKey.isValid = true;
