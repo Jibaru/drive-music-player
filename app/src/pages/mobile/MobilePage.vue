@@ -5,7 +5,7 @@
       <the-navbar class="navbar"></the-navbar>
     </div>
     <div v-else>
-      <change-root-drive-key />
+      <change-root-drive-key full-page />
     </div>
   </div>
 </template>
