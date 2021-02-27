@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  emits: ["changed-bar"],
+  emits: ["changed-bar", "finished"],
   props: {
     elapsedTime: {
       type: Number,
@@ -34,6 +34,11 @@ export default {
     elapsedTime(newVal) {
       const percentage = (newVal / this.totalTime) * 100;
       this.setTime(percentage);
+
+      // After 5 seconds to end emits finished
+      if (newVal.toFixed(0) == (this.totalTime - 5).toFixed(0)) {
+        this.$emit("finished");
+      }
     },
     totalTime(newVal) {
       const percentage = (this.elapsedTime / newVal) * 100;
@@ -54,16 +59,8 @@ export default {
     setTime(percentage) {
       this.$refs.bar.style.width = `${percentage}%`;
     },
-    mapDuration(secDuration) {
-      let minutes = 0;
-      let seconds = 0;
-      if (secDuration > 60) {
-        minutes = (secDuration / 60).toFixed(0);
-        seconds = secDuration % 60;
-      } else {
-        seconds = secDuration;
-      }
-      return `${minutes}:${seconds <= 9 ? "0" + seconds : seconds}`;
+    mapDuration(millsecDuration) {
+      return new Date(millsecDuration * 1000).toISOString().substr(14, 5);
     },
   },
   mounted() {
