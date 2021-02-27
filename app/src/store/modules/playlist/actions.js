@@ -1,6 +1,8 @@
 import getUserPlaylistsService from "../../../services/playlist/get-user-playlists.service.js";
 import createUserPlaylistService from "../../../services/playlist/create-user-playlist.service.js";
 import deleteUserPlaylistService from "../../../services/playlist/delete-user-playlist.service.js";
+import createUserPlaylistSongService from "../../../services/playlist/create-user-playlist-song.service.js";
+import deleteUserPlaylistSongService from "../../../services/playlist/delete-user-playlist-song.service.js";
 
 export default {
   async fetchPlaylists(context) {
@@ -69,6 +71,78 @@ export default {
       );
     } finally {
       context.commit("setIsDeletingPlaylist", { val: false });
+    }
+  },
+  async addSongToPlaylist(context, { songId, playlistId }) {
+    context.commit("setIsAddingSongToPlaylist", { val: true });
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+
+      const message = await createUserPlaylistSongService({
+        playlistId,
+        songId,
+        userId,
+        token,
+      });
+      context.commit("addSongIdToPlaylist", {
+        playlistId,
+        songId,
+      });
+      context.dispatch(
+        "song/addPlaylistIdToSong",
+        { playlistId, songId },
+        { root: true }
+      );
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message },
+        { root: true }
+      );
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    } finally {
+      context.commit("setIsAddingSongToPlaylist", { val: false });
+    }
+  },
+  async removeSongFromPlaylist(context, { songId, playlistId }) {
+    context.commit("setIsRemovingSongFromPlaylist", { val: true });
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+
+      const message = await deleteUserPlaylistSongService({
+        playlistId,
+        songId,
+        userId,
+        token,
+      });
+      context.commit("removeSongIdFromPlaylist", {
+        playlistId,
+        songId,
+      });
+      context.dispatch(
+        "song/removePlaylistIdFromSong",
+        { playlistId, songId },
+        { root: true }
+      );
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message },
+        { root: true }
+      );
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    } finally {
+      context.commit("setIsRemovingSongFromPlaylist", { val: false });
     }
   },
 };
