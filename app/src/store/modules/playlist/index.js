@@ -10,6 +10,8 @@ export default {
       fetchingPlaylists: false,
       creatingPlaylist: false,
       deletingPlaylist: false,
+      addingSongToPlaylist: false,
+      removingSongFromPlaylist: false,
     };
   },
   mutations,
