@@ -9,13 +9,13 @@ const updateUserRootDriveKeyController = async (req, res) => {
   const { rootDriveKey } = req.body;
 
   try {
+    const songsMetadata = await getDriveFilesMetadata({
+      driveFolderKey: rootDriveKey,
+    });
+
     await updateUserRootDriveKeyService({
       userId,
       newRootDriveKey: rootDriveKey,
-    });
-
-    const songsMetadata = await getDriveFilesMetadata({
-      driveFolderKey: rootDriveKey,
     });
 
     const message = await updateOrCreateSongsFromMetadata({
