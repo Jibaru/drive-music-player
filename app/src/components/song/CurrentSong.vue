@@ -1,42 +1,94 @@
 <template>
   <section>
     <div class="image-container">
-      <img
-        src="https://dummyimage.com/600x400/e8561c/e8e9f0"
-        alt="song-image"
-      />
+      <img :src="songImage" alt="song-image" />
     </div>
     <div class="info">
       <div>
         <h1>
-          Songname Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Natus, totam suscipit. Sapiente, recusandae aliquid hic explicabo
-          ipsum ipsa voluptas ea esse aliquam velit debitis eligendi voluptatum
-          sint consequatur quisquam repellat!
+          {{ currentSong.name }}
         </h1>
         <p>
-          <font-awesome-icon icon="history" /> Times Played: <span>10</span>
+          <font-awesome-icon icon="history" /> Times Played:
+          <span>{{ currentSong.timesPlayed }}</span>
         </p>
-        <p><font-awesome-icon icon="clock" /> Duration: <span>--:--</span></p>
+        <p>
+          <font-awesome-icon icon="clock" /> Duration:
+          <span> {{ currentSong.duration }}</span>
+        </p>
       </div>
       <ul>
         <li>
-          <base-icon-button icon="download" />
+          <base-icon-button icon="download" @click="downloadSong" />
         </li>
         <li>
           <base-icon-button icon="list" />
         </li>
       </ul>
     </div>
-    <play-control />
+    <play-control
+      :elapsed-time="currentTimestamp"
+      :total-time="currentTotalTime"
+      :current-volume="currentVolume"
+      :isPlaying="isPlaying"
+      @changed-bar="changeElapsedTime"
+      @changed-volume="changeVolume"
+      @play="playSong"
+      @pause="pauseSong"
+      @play-finished="increaseTimesPlayed"
+    />
   </section>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import PlayControl from "../play-control/PlayControl.vue";
 
 export default {
   components: {
     PlayControl,
+  },
+  computed: {
+    ...mapGetters({
+      currentSong: "currentPlayback/currentSong",
+      currentTimestamp: "currentPlayback/currentTimestamp",
+      currentTotalTime: "currentPlayback/currentTotalTime",
+      currentVolume: "currentPlayback/currentVolume",
+      isPlaying: "currentPlayback/isPlaying",
+    }),
+    songImage() {
+      return (
+        this.currentSong.imageUrl ||
+        require("@/assets/img/default-song-image.jpg")
+      );
+    },
+  },
+  methods: {
+    ...mapActions({
+      changeCurrentTimestamp: "currentPlayback/changeCurrentTimestamp",
+      changeCurrentVolume: "currentPlayback/changeCurrentVolume",
+      playCurrentSong: "currentPlayback/playSong",
+      pauseCurrentSong: "currentPlayback/pauseSong",
+    }),
+    changeElapsedTime({ newElapsedTime }) {
+      this.changeCurrentTimestamp({
+        timestamp: newElapsedTime,
+      });
+    },
+    changeVolume(percentage) {
+      this.changeCurrentVolume({ percentage });
+    },
+    downloadSong() {
+      window.open(this.currentSong.songUrl, "_blank");
+    },
+    playSong() {
+      this.playCurrentSong();
+    },
+    pauseSong() {
+      this.pauseCurrentSong();
+    },
+    increaseTimesPlayed() {
+      // TODO: Increase times played
+    },
   },
 };
 </script>
