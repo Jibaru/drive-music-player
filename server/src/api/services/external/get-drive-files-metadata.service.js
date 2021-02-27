@@ -20,6 +20,11 @@ const fetchData = async (
   const resp = await fetch(url);
   const jsonResp = await resp.json();
 
+  if (jsonResp.error) {
+    console.log(jsonResp.error);
+    throw new Error("Cannot fetch data");
+  }
+
   for (let file of jsonResp.files) {
     if (file.mimeType.includes(G_AUDIO)) {
       allSongsFetched.push({
