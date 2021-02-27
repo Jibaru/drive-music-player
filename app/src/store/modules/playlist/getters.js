@@ -14,4 +14,10 @@ export default {
   deletingPlaylist(state) {
     return state.deletingPlaylist;
   },
+  addingSongToPlaylist(state) {
+    return state.addingSongToPlaylist;
+  },
+  removingSongFromPlaylist(state) {
+    return state.removingSongFromPlaylist;
+  },
 };
