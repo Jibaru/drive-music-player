@@ -14,12 +14,47 @@
       <base-button mini color="warning">
         <font-awesome-icon icon="redo" /> Refresh Drive
       </base-button>
-      <base-button mini>
+      <base-dialog
+        :open="isChangeRootDriveKeyOpen"
+        @close="closeChangeRootDriveKeyDialog"
+      >
+        <change-root-drive-key
+          @changedRootDriveKey="closeChangeRootDialogAndRefresh"
+        />
+        <div class="alert-danger">This action reload the page</div>
+      </base-dialog>
+      <base-button mini @click="openChangeRootDriveKeyDialog">
         <font-awesome-icon icon="edit" /> Change Drive Root
       </base-button>
     </div>
   </section>
 </template>
+<script>
+import ChangeRootDriveKey from "./ChangeRootDriveKey.vue";
+
+export default {
+  components: {
+    ChangeRootDriveKey,
+  },
+  data() {
+    return {
+      isChangeRootDriveKeyOpen: false,
+    };
+  },
+  methods: {
+    openChangeRootDriveKeyDialog() {
+      this.isChangeRootDriveKeyOpen = true;
+    },
+    closeChangeRootDriveKeyDialog() {
+      this.isChangeRootDriveKeyOpen = false;
+    },
+    closeChangeRootDialogAndRefresh() {
+      this.closeChangeRootDriveKeyDialog();
+      location.reload();
+    },
+  },
+};
+</script>
 <style scoped>
 .user-data {
   display: grid;
@@ -48,5 +83,17 @@
   text-align: end;
   padding-top: 1rem;
   padding-right: 0.5rem;
+}
+
+.alert-danger {
+  background-color: var(--app-danger-color);
+  color: var(--app-danger-contrast-color);
+  text-align: center;
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
