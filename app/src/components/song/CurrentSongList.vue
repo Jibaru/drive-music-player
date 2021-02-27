@@ -99,7 +99,7 @@ export default {
 
 .current-song-list ul {
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: calc(100% - 3.5rem);
 }

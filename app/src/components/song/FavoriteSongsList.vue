@@ -81,7 +81,7 @@ export default {
 
 .song-list {
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
 }

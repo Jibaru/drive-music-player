@@ -111,7 +111,7 @@ export default {
 
 .playlists-list {
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: calc(100% - 2.5rem);
 }

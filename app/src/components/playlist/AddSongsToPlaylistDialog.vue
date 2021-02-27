@@ -98,7 +98,7 @@ export default {
 <style scoped>
 .songs {
   height: 50vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 li {
