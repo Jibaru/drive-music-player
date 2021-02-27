@@ -1,5 +1,5 @@
 <template>
-  <button :class="classStyles">
+  <button :class="classStyles" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -30,6 +30,11 @@ export default {
         return !!validValues.find((v) => v === val);
       },
     },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     classStyles() {
@@ -41,6 +46,7 @@ export default {
         "warning-btn": this.color === "warning",
         "danger-btn": this.color === "danger",
         "light-btn": this.color === "light",
+        "disabled-btn": this.disabled,
       };
     },
   },
@@ -95,5 +101,11 @@ button:focus {
 .light-btn {
   background-color: var(--app-light-color);
   color: var(--app-light-contrast-color);
+}
+
+.disabled-btn {
+  background-color: var(--app-disabled-color);
+  color: var(--app-disabled-contrast-color);
+  box-shadow: none;
 }
 </style>
