@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="actions">
+      <base-button mini>
+        Play favorite songs
+      </base-button>
+    </div>
     <ul class="song-list" v-if="!isLoading && !favoriteSongsEmpty">
       <song-item
         v-for="song in favoriteSongs"
@@ -79,11 +84,16 @@ export default {
   height: 100%;
 }
 
+.actions {
+  height: 2.5rem;
+  padding: 0.4rem;
+}
+
 .song-list {
   display: block;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100%;
+  height: calc(100% - 2.5rem);
 }
 
 .empty-message {
