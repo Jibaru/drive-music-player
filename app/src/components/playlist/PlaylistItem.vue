@@ -2,7 +2,7 @@
   <li class="playlist-item">
     <div class="info">
       <h2>{{ playlistName }}</h2>
-      <p>10 songs</p>
+      <p>{{ countSongs }} songs</p>
     </div>
     <div class="actions">
       <base-button mini color="danger" @click="$emit('delete')">
