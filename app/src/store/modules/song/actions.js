@@ -45,4 +45,10 @@ export default {
       );
     }
   },
+  addPlaylistIdToSong(context, { playlistId, songId }) {
+    context.commit("addPlaylistIdToSong", { playlistId, songId });
+  },
+  removePlaylistIdFromSong(context, { playlistId, songId }) {
+    context.commit("removePlaylistIdFromSong", { playlistId, songId });
+  },
 };
