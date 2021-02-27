@@ -20,6 +20,7 @@ const createUserPlaylistController = async (req, res) => {
     return res.status(200).json({
       ok: true,
       playlistSong,
+      message: "Added to playlist",
     });
   } catch (error) {
     console.log(error);
