@@ -26,4 +26,7 @@ export default {
   hasRootDriveKey(state) {
     return state.rootDriveKey !== null;
   },
+  rootDriveKey(state) {
+    return state.rootDriveKey;
+  },
 };
