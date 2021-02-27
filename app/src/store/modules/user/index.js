@@ -6,9 +6,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      songs: [],
-      playlists: [],
-      favorites: [],
+      refreshingDriveSongs: false,
     };
   },
   mutations,
