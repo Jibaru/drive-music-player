@@ -22,15 +22,15 @@
           <base-icon-button icon="trash-alt" mini color="danger" />
         </li>
       </ul>
-      <base-button mini>
-        <font-awesome-icon icon="plus" /> Add to playlist
+      <base-button mini @click="$emit('addToPlaylists')">
+        <font-awesome-icon icon="plus" /> Add to playlists
       </base-button>
     </div>
   </li>
 </template>
 <script>
 export default {
-  emits: ["clickFavoriteIcon"],
+  emits: ["clickFavoriteIcon", "addToPlaylists"],
   props: {
     songId: {
       type: Number,
