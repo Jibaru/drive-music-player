@@ -4,6 +4,7 @@ import authModule from "./modules/auth/index";
 import userModule from "./modules/user/index";
 import songModule from "./modules/song/index";
 import playlistModule from "./modules/playlist/index";
+import currentPlaybackModule from "./modules/current-playback/index";
 
 const store = createStore({
   modules: {
@@ -11,6 +12,7 @@ const store = createStore({
     user: userModule,
     song: songModule,
     playlist: playlistModule,
+    currentPlayback: currentPlaybackModule,
   },
   state() {
     return {
