@@ -117,5 +117,6 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  height: calc(100% - 2.5rem);
 }
 </style>
