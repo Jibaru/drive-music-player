@@ -29,6 +29,9 @@ export default {
       hasRootDriveKey: "auth/hasRootDriveKey",
       isAuthenticated: "auth/isAuthenticated",
     }),
+    hasRootDriveKeyAndIsAuthenticated() {
+      return this.hasRootDriveKey && this.isAuthenticated;
+    },
   },
   watch: {
     globalSnackBarMessage(newVal, oldVal) {
@@ -36,8 +39,8 @@ export default {
         this.globalSnackbar.isVisible = true;
       }
     },
-    hasRootDriveKey(newVal) {
-      if (newVal && this.isAuthenticated) {
+    hasRootDriveKeyAndIsAuthenticated(newVal) {
+      if (newVal) {
         this.fetchSongs();
         this.fetchPlaylists();
       }
