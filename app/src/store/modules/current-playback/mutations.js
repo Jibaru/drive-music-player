@@ -89,4 +89,10 @@ export default {
       }
     }
   },
+  setSongDuration(state, { songId, duration }) {
+    const index = state.songsPlaylist.findIndex((song) => song.id === songId);
+    if (index !== -1) {
+      state.songsPlaylist[index].durationMilliseconds = duration;
+    }
+  },
 };
