@@ -1,34 +1,36 @@
 <template>
   <section>
-    <div class="image-container">
-      <img :src="songImage" alt="song-image" />
-    </div>
-    <div class="info">
-      <div>
-        <h1>
-          {{ currentSongName }}
-        </h1>
-        <p>
-          <base-icon icon="history" /> Times Played:
-          <span>{{ currentSong.timesPlayed }}</span>
-        </p>
-        <p>
-          <base-icon icon="clock" /> Duration:
-          <span> {{ mappedDuration }}</span>
-        </p>
+    <div class="info-container">
+      <div class="image-container">
+        <img :src="songImage" alt="song-image" />
       </div>
-      <ul>
-        <li>
-          <base-icon-button
-            icon="download"
-            @click="downloadSong"
-            :disabled="!loadedCurrentSong"
-          />
-        </li>
-        <li>
-          <base-icon-button icon="heart" :disabled="!loadedCurrentSong" />
-        </li>
-      </ul>
+      <div class="info">
+        <div>
+          <h1>
+            {{ currentSongName }}
+          </h1>
+          <p>
+            <base-icon icon="history" /> Times Played:
+            <span>{{ currentSong.timesPlayed }}</span>
+          </p>
+          <p>
+            <base-icon icon="clock" /> Duration:
+            <span> {{ mappedDuration }}</span>
+          </p>
+        </div>
+        <ul>
+          <li>
+            <base-icon-button
+              icon="download"
+              @click="downloadSong"
+              :disabled="!loadedCurrentSong"
+            />
+          </li>
+          <li>
+            <base-icon-button icon="heart" :disabled="!loadedCurrentSong" />
+          </li>
+        </ul>
+      </div>
     </div>
     <play-control
       :elapsed-time="currentTimestamp"
@@ -45,6 +47,7 @@
       @play-finished="increaseTimesPlayed"
       @prev="prevSong"
       @next="nextSong"
+      class="play-control"
     />
   </section>
 </template>
@@ -128,12 +131,34 @@ section {
   justify-content: center;
 }
 
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  .info-container {
+    flex-direction: row;
+    margin-bottom: 1rem;
+  }
+}
+
 .image-container {
   max-width: 250px;
   height: 250px;
   border-radius: 0.3rem;
   overflow: hidden;
   margin: 0 auto;
+  grid-area: img;
+}
+
+@media (min-width: 576px) {
+  .image-container {
+    max-width: 150px;
+    height: 150px;
+  }
 }
 
 .image-container img {
@@ -148,6 +173,15 @@ section {
   display: flex;
   justify-content: space-between;
   margin: 2rem 0;
+  grid-area: info;
+}
+
+@media (min-width: 576px) {
+  .info {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 1rem;
+  }
 }
 
 .info h1 {
@@ -166,5 +200,9 @@ section {
 .info li {
   list-style: none;
   display: inline-block;
+}
+
+.play-control {
+  grid-area: control;
 }
 </style>
