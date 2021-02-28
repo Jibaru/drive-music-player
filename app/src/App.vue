@@ -27,6 +27,7 @@ export default {
     ...mapGetters({
       globalSnackBarMessage: "globalSnackBarMessage",
       hasRootDriveKey: "auth/hasRootDriveKey",
+      isAuthenticated: "auth/isAuthenticated",
     }),
   },
   watch: {
@@ -36,7 +37,7 @@ export default {
       }
     },
     hasRootDriveKey(newVal) {
-      if (newVal) {
+      if (newVal && this.isAuthenticated) {
         this.fetchSongs();
         this.fetchPlaylists();
       }
