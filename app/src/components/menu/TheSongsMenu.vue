@@ -9,7 +9,7 @@
           @click="selectTab(tab.component)"
         >
           <div>
-            <font-awesome-icon :icon="tab.icon" />
+            <base-icon :icon="tab.icon" />
           </div>
           {{ tab.name }}
         </li>

@@ -1,6 +1,6 @@
 <template>
   <button :class="classStyles" @click="emitClick">
-    <font-awesome-icon :icon="icon" />
+    <base-icon :icon="icon" />
   </button>
 </template>
 <script>

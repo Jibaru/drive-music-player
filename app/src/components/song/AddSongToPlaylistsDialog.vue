@@ -16,7 +16,7 @@
             @click="addSongToPlaylist(playlist.id)"
             :disabled="isAddingOrDeleting"
           >
-            <font-awesome-icon icon="plus" /> Add
+            <base-icon icon="plus" /> Add
           </base-button>
           <base-button
             mini
@@ -25,7 +25,7 @@
             @click="removeSongFromPlaylist(playlist.id)"
             :disabled="isAddingOrDeleting"
           >
-            <font-awesome-icon icon="trash-alt" /> Remove
+            <base-icon icon="trash-alt" /> Remove
           </base-button>
         </div>
       </li>

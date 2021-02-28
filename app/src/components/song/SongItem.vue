@@ -5,8 +5,8 @@
     </div>
     <div class="info">
       <h2>{{ songName }}</h2>
-      <p><font-awesome-icon icon="clock" /> {{ mappedDuration }}</p>
-      <p><font-awesome-icon icon="history" /> {{ timesPlayed }}</p>
+      <p><base-icon icon="clock" /> {{ mappedDuration }}</p>
+      <p><base-icon icon="history" /> {{ timesPlayed }}</p>
     </div>
     <div class="actions">
       <ul>
@@ -15,7 +15,6 @@
             :icon="favoriteIcon"
             mini
             @click.stop="emitFavorite"
-            :key="favoriteChangedTimes"
           />
         </li>
         <li v-if="showDeleteButton">
@@ -23,7 +22,7 @@
         </li>
       </ul>
       <base-button mini @click.stop="$emit('addToPlaylists')">
-        <font-awesome-icon icon="plus" /> Add to playlists
+        <base-icon icon="plus" /> Add to playlists
       </base-button>
     </div>
   </li>
@@ -80,11 +79,6 @@ export default {
         parsedDuration = this.mapDuration(this.duration);
       }
       return parsedDuration;
-    },
-  },
-  watch: {
-    isFavorite() {
-      this.favoriteChangedTimes++;
     },
   },
   methods: {

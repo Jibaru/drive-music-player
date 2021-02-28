@@ -6,10 +6,10 @@
     </div>
     <div class="actions">
       <base-button mini color="danger" @click="$emit('delete')">
-        <font-awesome-icon icon="trash-alt" /> Delete
+        <base-icon icon="trash-alt" /> Delete
       </base-button>
       <base-button mini @click="$emit('add-song')">
-        <font-awesome-icon icon="plus" /> Add song
+        <base-icon icon="plus" /> Add song
       </base-button>
     </div>
   </li>

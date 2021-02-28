@@ -9,7 +9,7 @@
       >
         <li @click="selectRoute(route.name)">
           <div>
-            <font-awesome-icon :icon="route.iconClass" />
+            <base-icon :icon="route.iconClass" />
           </div>
           {{ route.text }}
         </li>

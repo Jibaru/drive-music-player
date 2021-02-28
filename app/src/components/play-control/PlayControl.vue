@@ -20,7 +20,6 @@
           unbackground
           big
           @click="changePlaybackStatus"
-          :key="refreshIcon"
           :disabled="!playEnabled"
         />
         <base-icon-button
@@ -86,19 +85,9 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      refreshIcon: 0,
-    };
-  },
   computed: {
     statusIcon() {
       return this.isPlaying ? "pause" : "play";
-    },
-  },
-  watch: {
-    isPlaying() {
-      this.refreshIcon++;
     },
   },
   methods: {

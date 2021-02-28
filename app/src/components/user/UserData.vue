@@ -3,7 +3,7 @@
     <div class="user-info">
       <div>
         <base-button icon bottom-left-rounded color="light">
-          <font-awesome-icon icon="sign-out-alt" />
+          <base-icon icon="sign-out-alt" />
         </base-button>
       </div>
       <div>
@@ -30,7 +30,7 @@
         </div>
       </base-confirm-dialog>
       <base-button mini color="warning" @click="openRefreshDialog">
-        <font-awesome-icon icon="redo" /> Refresh Drive
+        <base-icon icon="redo" /> Refresh Drive
       </base-button>
       <base-dialog
         :open="isChangeRootDriveKeyOpen"
@@ -42,7 +42,7 @@
         <div class="alert-danger">This action reload the page</div>
       </base-dialog>
       <base-button mini @click="openChangeRootDriveKeyDialog">
-        <font-awesome-icon icon="edit" /> Change Drive Root
+        <base-icon icon="edit" /> Change Drive Root
       </base-button>
     </div>
   </section>

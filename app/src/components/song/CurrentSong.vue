@@ -9,11 +9,11 @@
           {{ currentSongName }}
         </h1>
         <p>
-          <font-awesome-icon icon="history" /> Times Played:
+          <base-icon icon="history" /> Times Played:
           <span>{{ currentSong.timesPlayed }}</span>
         </p>
         <p>
-          <font-awesome-icon icon="clock" /> Duration:
+          <base-icon icon="clock" /> Duration:
           <span> {{ mappedDuration }}</span>
         </p>
       </div>
