@@ -11,8 +11,8 @@ const GET_USER_SONGS = "/api/users/:userId/songs";
 const INCREASE_TIMES_PLAYED_BY_ONE_USER_SONG =
   "/api/users/:userId/songs/:songId/increase-times-played-by-one";
 const REFRESH_USER_SONGS = "/api/users/:userId/songs/refresh";
-const SET_DURATION_SECONDS_USER_SONG =
-  "/api/users/:userId/songs/:songId/set-duration-seconds";
+const SET_DURATION_MILLISECONDS_USER_SONG =
+  "/api/users/:userId/songs/:songId/set-duration-milliseconds";
 const UPDATE_FAVORITE_USER_SONG = "/api/users/:userId/songs/:songId";
 const UPDATE_USER_ROOT_DRIVE_KEY = "/api/users/:userId/root-drive-key";
 const GET_PLAYLIST_SONGS = "/api/playlists/:playlistId/songs";
@@ -29,7 +29,7 @@ export {
   GET_USER_SONGS,
   INCREASE_TIMES_PLAYED_BY_ONE_USER_SONG,
   REFRESH_USER_SONGS,
-  SET_DURATION_SECONDS_USER_SONG,
+  SET_DURATION_MILLISECONDS_USER_SONG,
   UPDATE_FAVORITE_USER_SONG,
   UPDATE_USER_ROOT_DRIVE_KEY,
   GET_PLAYLIST_SONGS,
