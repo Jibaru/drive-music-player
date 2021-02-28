@@ -87,16 +87,8 @@ export default {
     },
   },
   methods: {
-    mapDuration(secDuration) {
-      let minutes = 0;
-      let seconds = 0;
-      if (secDuration > 60) {
-        minutes = (secDuration / 60).toFixed(0);
-        seconds = secDuration % 60;
-      } else {
-        seconds = secDuration;
-      }
-      return `${minutes}:${seconds <= 9 ? "0" + seconds : seconds}`;
+    mapDuration(millsecDuration) {
+      return new Date(millsecDuration * 1000).toISOString().substr(14, 5);
     },
     emitFavorite() {
       this.$emit("clickFavoriteIcon", !this.isFavorite);
