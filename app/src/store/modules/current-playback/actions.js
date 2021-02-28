@@ -9,12 +9,26 @@ export default {
   setSongAndPlay(context, { song }) {
     context.commit("setCurrentSong", {
       song,
-      onLoadedSong: () => {
+      onLoadedSong: ({ duration }) => {
         context.commit("changeCurrentVolume", {
           percentage: context.getters.currentVolume,
         });
         context.dispatch("playSong");
-        // TODO: Dispatch set user song duration
+
+        if (duration.newVal !== duration.oldVal) {
+          context.dispatch(
+            "song/updateSongDuration",
+            {
+              songId: song.id,
+              duration: duration.newVal,
+            },
+            { root: true }
+          );
+          context.commit("setSongDuration", {
+            songId: song.id,
+            duration: duration.newVal,
+          });
+        }
       },
     });
   },
