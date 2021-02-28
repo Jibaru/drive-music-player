@@ -3,24 +3,37 @@
     <elapsed-time-bar
       :elapsed-time="elapsedTime"
       :total-time="totalTime"
+      :disabled="!playEnabled"
       @changed-bar="$emit('changed-bar', $event)"
       @finished="$emit('play-finished')"
     />
     <div class="controls">
       <div class="reproduction">
-        <base-icon-button icon="backward" unbackground />
+        <base-icon-button
+          icon="backward"
+          unbackground
+          @click="$emit('prev')"
+          :disabled="!prevEnabled"
+        />
         <base-icon-button
           :icon="statusIcon"
           unbackground
           big
           @click="changePlaybackStatus"
           :key="refreshIcon"
+          :disabled="!playEnabled"
         />
-        <base-icon-button icon="forward" unbackground />
+        <base-icon-button
+          icon="forward"
+          unbackground
+          @click="$emit('next')"
+          :disabled="!nextEnabled"
+        />
       </div>
       <volume-control
         :volume="currentVolume"
         @changed-volume="$emit('changed-volume', $event)"
+        :disabled="!playEnabled"
       />
     </div>
   </div>
@@ -34,7 +47,15 @@ export default {
     ElapsedTimeBar,
     VolumeControl,
   },
-  emits: ["changed-bar", "changed-volume", "pause", "play", "play-finished"],
+  emits: [
+    "changed-bar",
+    "changed-volume",
+    "pause",
+    "play",
+    "play-finished",
+    "next",
+    "prev",
+  ],
   props: {
     elapsedTime: {
       type: Number,
@@ -49,6 +70,18 @@ export default {
       required: true,
     },
     isPlaying: {
+      type: Boolean,
+      required: true,
+    },
+    prevEnabled: {
+      type: Boolean,
+      required: true,
+    },
+    playEnabled: {
+      type: Boolean,
+      required: true,
+    },
+    nextEnabled: {
       type: Boolean,
       required: true,
     },
