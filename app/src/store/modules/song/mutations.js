@@ -22,4 +22,8 @@ export default {
     const index = state.songs.findIndex((song) => song.id === songId);
     state.songs[index].isFavorite = val;
   },
+  setSongDuration(state, { songId, duration }) {
+    const index = state.songs.findIndex((song) => song.id === songId);
+    state.songs[index].durationMilliseconds = duration;
+  },
 };
