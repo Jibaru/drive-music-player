@@ -18,6 +18,12 @@ export default {
       },
     });
   },
+  findPlaylistSongsAndPlay(context, { playlistId, name }) {
+    const playlistSongs = context.rootGetters["song/allSongs"].filter(
+      (song) => !!song.playlists.find((playlist) => playlist.id === playlistId)
+    );
+    context.dispatch("setSongsPlaylistAndPlay", { name, songs: playlistSongs });
+  },
   playSong(context) {
     if (context.getters.loadedCurrentSong) {
       context.commit("play", {
