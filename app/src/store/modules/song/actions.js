@@ -1,5 +1,6 @@
 import getUserSongsService from "../../../services/song/get-user-songs.service.js";
 import updateFavoriteUserSongService from "../../../services/song/update-favorite-user-song.service.js";
+import setDurationUserSongService from "../../../services/song/set-duration-user-song.service.js";
 
 export default {
   async fetchSongs(context) {
@@ -55,5 +56,25 @@ export default {
   },
   removePlaylistIdFromSong(context, { playlistId, songId }) {
     context.commit("removePlaylistIdFromSong", { playlistId, songId });
+  },
+  async updateSongDuration(context, { songId, duration }) {
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+      await setDurationUserSongService({
+        userId,
+        songId,
+        duration,
+        token,
+      });
+
+      context.commit("setSongDuration", { songId, duration });
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    }
   },
 };
