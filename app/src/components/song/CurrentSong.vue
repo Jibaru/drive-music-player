@@ -27,7 +27,11 @@
             />
           </li>
           <li>
-            <base-icon-button icon="heart" :disabled="!loadedCurrentSong" />
+            <base-icon-button
+              :icon="favoriteIcon"
+              @click="toggleFavorite"
+              :disabled="!loadedCurrentSong"
+            />
           </li>
         </ul>
       </div>
@@ -82,6 +86,9 @@ export default {
     mappedDuration() {
       return new Date(this.currentTotalTime * 1000).toISOString().substr(14, 5);
     },
+    favoriteIcon() {
+      return this.currentSong.isFavorite ? ["fas", "heart"] : ["far", "heart"];
+    },
   },
   methods: {
     ...mapActions({
@@ -91,6 +98,7 @@ export default {
       pauseCurrentSong: "currentPlayback/pauseSong",
       toPrevSong: "currentPlayback/prevSong",
       toNextSong: "currentPlayback/nextSong",
+      toggleSongFavorite: "song/toggleSongFavorite",
     }),
     changeElapsedTime({ newElapsedTime }) {
       this.changeCurrentTimestamp({
@@ -117,6 +125,12 @@ export default {
     },
     increaseTimesPlayed() {
       // TODO: Increase times played
+    },
+    toggleFavorite() {
+      this.toggleSongFavorite({
+        songId: this.currentSong.id,
+        val: !this.currentSong.isFavorite,
+      });
     },
   },
 };
