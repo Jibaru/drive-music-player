@@ -1,5 +1,5 @@
 <template>
-  <li class="song-item">
+  <li class="song-item" @click="$emit('click')">
     <div>
       <img :src="songImage" alt="song-image" />
     </div>
@@ -14,7 +14,7 @@
           <base-icon-button
             :icon="favoriteIcon"
             mini
-            @click="emitFavorite"
+            @click.stop="emitFavorite"
             :key="favoriteChangedTimes"
           />
         </li>
@@ -22,7 +22,7 @@
           <base-icon-button icon="trash-alt" mini color="danger" />
         </li>
       </ul>
-      <base-button mini @click="$emit('addToPlaylists')">
+      <base-button mini @click.stop="$emit('addToPlaylists')">
         <font-awesome-icon icon="plus" /> Add to playlists
       </base-button>
     </div>
@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-  emits: ["clickFavoriteIcon", "addToPlaylists"],
+  emits: ["clickFavoriteIcon", "addToPlaylists", "click"],
   props: {
     songId: {
       type: Number,
