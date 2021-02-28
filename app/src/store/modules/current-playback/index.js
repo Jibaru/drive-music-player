@@ -6,6 +6,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      listName: "",
       songsPlaylist: [],
       currentSong: {
         id: null,
@@ -16,11 +17,13 @@ export default {
         totalDuration: null,
       },
       playInstance: null,
+      loadedCurrentSong: false,
       currentTimestamp: 0,
       currentTotalTime: 0,
       timeStampInterval: null,
       currentVolume: 100,
       isPlaying: false,
+      autoNext: true,
     };
   },
   mutations,
