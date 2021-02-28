@@ -5,7 +5,7 @@
       <span class="total-time">{{ mappedTotalTime }}</span>
     </div>
     <div class="bar-container" @click="changeTime" ref="bar-container">
-      <div class="bar" ref="bar" />
+      <div class="bar" :class="{ disabled: disabled }" ref="bar" />
     </div>
   </div>
 </template>
@@ -20,6 +20,11 @@ export default {
     totalTime: {
       type: Number,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {
@@ -47,14 +52,16 @@ export default {
   },
   methods: {
     changeTime(e) {
-      const bcr = this.$refs["bar-container"].getBoundingClientRect();
-      const percentage = ((e.clientX - bcr.left) / bcr.width) * 100;
-      const newElapsedTime = (this.totalTime * percentage) / 100;
-      this.setTime(percentage);
-      this.$emit("changed-bar", {
-        percentage,
-        newElapsedTime,
-      });
+      if (!this.disabled) {
+        const bcr = this.$refs["bar-container"].getBoundingClientRect();
+        const percentage = ((e.clientX - bcr.left) / bcr.width) * 100;
+        const newElapsedTime = (this.totalTime * percentage) / 100;
+        this.setTime(percentage);
+        this.$emit("changed-bar", {
+          percentage,
+          newElapsedTime,
+        });
+      }
     },
     setTime(percentage) {
       this.$refs.bar.style.width = `${percentage}%`;
@@ -95,5 +102,9 @@ export default {
   height: 100%;
   background-color: var(--app-secondary-color);
   border-radius: 0.5rem;
+}
+
+.disabled {
+  background-color: var(--app-disabled-color);
 }
 </style>
