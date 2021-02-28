@@ -62,4 +62,7 @@ export default {
   changeCurrentVolume(context, { percentage }) {
     context.commit("changeCurrentVolume", { percentage });
   },
+  toggleSongInPlaybackFavorite(context, { songId, val }) {
+    context.commit("toggleSongFavorite", { songId, val });
+  },
 };
