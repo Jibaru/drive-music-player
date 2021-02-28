@@ -1,4 +1,10 @@
 export default {
+  setListName(state, { name }) {
+    state.listName = name;
+  },
+  setSongsPlaylist(state, { songs }) {
+    state.songsPlaylist = songs;
+  },
   setCurrentSong(state, { song, onLoadedSong }) {
     state.currentSong.id = song.id;
     state.currentSong.name = song.name;
@@ -11,16 +17,18 @@ export default {
       state.currentTimestamp = 0;
       state.playInstance.currentTime = 0;
       state.playInstance.pause();
+      state.loadedCurrentSong = false;
     }
     state.playInstance = new Audio(song.songUrl);
 
     state.playInstance.onloadeddata = () => {
       clearInterval(state.timeStampInterval);
       state.currentTotalTime = state.playInstance.duration;
+      state.loadedCurrentSong = true;
       onLoadedSong();
     };
   },
-  play(state) {
+  play(state, { onFinished }) {
     if (state.playInstance && state.playInstance.paused) {
       state.playInstance.play();
       state.isPlaying = true;
@@ -31,6 +39,10 @@ export default {
           clearInterval(state.timeStampInterval);
           state.currentTimestamp = 0;
           state.isPlaying = false;
+
+          if (onFinished) {
+            onFinished();
+          }
         }
       }, 1000);
     }
