@@ -14,6 +14,7 @@ export default {
       rootDriveKey: null,
       isPreRegistered: false,
       registered: false,
+      expirationDate: null,
     };
   },
   mutations,
