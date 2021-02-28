@@ -5,6 +5,9 @@ export default {
   currentSong(state) {
     return state.currentSong;
   },
+  currentSongId(state) {
+    return state.currentSong.id;
+  },
   currentSongIndex(state) {
     const index = state.songsPlaylist.findIndex(
       (s) => s.id === state.currentSong.id
