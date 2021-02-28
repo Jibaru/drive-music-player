@@ -88,6 +88,8 @@ export default {
   --app-light-contrast-color: #070606;
   --app-disabled-color: #757575;
   --app-disabled-contrast-color: #272525;
+  --app-selected-color: #111111;
+  --app-selected-contrast-color: white;
 
   /* Breakpoints */
   /* --app-sm: 576px;
