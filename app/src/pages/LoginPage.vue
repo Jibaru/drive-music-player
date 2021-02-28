@@ -113,6 +113,16 @@ export default {
       this.isLoading = false;
     },
   },
+  mounted() {
+    if (this.isAuthenticated) {
+      const windowWidth = window.innerWidth;
+      if (windowWidth <= 576) {
+        this.$router.push("/mobile");
+      } else {
+        this.$router.push("/home");
+      }
+    }
+  },
 };
 </script>
 <style scoped>
