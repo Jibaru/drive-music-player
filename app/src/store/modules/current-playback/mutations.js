@@ -12,6 +12,8 @@ export default {
     state.currentSong.imageUrl = song.imageUrl;
     state.currentSong.duration = song.duration;
     state.currentSong.timesPlayed = song.timesPlayed;
+    state.currentSong.isFavorite = song.isFavorite;
+    state.currentSong.playlists = song.playlists;
 
     if (state.playInstance) {
       state.currentTimestamp = 0;
@@ -64,6 +66,15 @@ export default {
     state.currentVolume = percentage;
     if (state.playInstance) {
       state.playInstance.volume = percentage * 0.01;
+    }
+  },
+  toggleSongFavorite(state, { songId, val }) {
+    const index = state.songsPlaylist.findIndex((song) => song.id === songId);
+    if (index !== -1) {
+      state.songsPlaylist[index].isFavorite = val;
+      if (state.currentSong.id === songId) {
+        state.currentSong.isFavorite = val;
+      }
     }
   },
 };
