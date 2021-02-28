@@ -11,9 +11,17 @@ export default {
       context.commit("setToken", { token: data.jwt });
       context.commit("setUserAuth", data.user);
 
+      // Calc expiration date
+      const now = new Date();
+      now.setMilliseconds(now.getMilliseconds() + parseInt(data.expiresIn));
+      context.commit("setExpirationDate", {
+        expirationDate: now,
+      });
+
       // To Localstorage
       localStorage.setItem("token", data.jwt);
       localStorage.setItem("userAuth", JSON.stringify(data.user));
+      localStorage.setItem("expirationDateTime", now.getTime().toString());
 
       context.dispatch(
         "showGlobalSnackBarMessage",
@@ -37,10 +45,18 @@ export default {
   tryGetLocalStorageAuth(context) {
     const token = localStorage.getItem("token");
     const userAuth = localStorage.getItem("userAuth");
+    const expirationDateTime = localStorage.getItem("expirationDateTime");
 
     if (token && userAuth) {
       context.commit("setToken", { token });
       context.commit("setUserAuth", JSON.parse(userAuth));
+      context.commit("setExpirationDate", {
+        expirationDate: new Date(parseInt(expirationDateTime)),
+      });
+    }
+
+    if (!context.getters.isAuthenticated) {
+      context.dispatch("logout");
     }
   },
   async preRegister(context, { username, email, password }) {
@@ -105,5 +121,20 @@ export default {
 
     // To Localstorage
     localStorage.setItem("userAuth", JSON.stringify(context.getters.userAuth));
+  },
+  logout(context) {
+    context.commit("setToken", { token: null });
+    context.commit("setUserAuth", {
+      id: null,
+      username: null,
+      email: null,
+      role: null,
+      rootDriveKey: null,
+    });
+    context.commit("setExpirationDate", { expirationDate: null });
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userAuth");
+    localStorage.removeItem("expirationDateTime");
   },
 };
