@@ -9,7 +9,12 @@
         <div class="volume-bar" ref="volume-bar" />
       </div>
     </div>
-    <base-icon-button icon="volume-down" unbackground @click="toggleBar" />
+    <base-icon-button
+      icon="volume-down"
+      unbackground
+      @click="toggleBar"
+      :disabled="disabled"
+    />
   </div>
 </template>
 <script>
@@ -19,6 +24,11 @@ export default {
     volume: {
       type: Number,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
@@ -30,16 +40,25 @@ export default {
     volume(newVal) {
       this.setVolume(newVal);
     },
+    disabled(newVal) {
+      if (newVal) {
+        this.barIsVisible = false;
+      }
+    },
   },
   methods: {
     toggleBar() {
-      this.barIsVisible = !this.barIsVisible;
+      if (!this.disabled) {
+        this.barIsVisible = !this.barIsVisible;
+      }
     },
     changeVolume(e) {
-      const bcr = this.$refs["volume-bar-container"].getBoundingClientRect();
-      const percentage = ((e.clientY - bcr.bottom) / bcr.height) * -100;
-      this.setVolume(percentage);
-      this.$emit("changed-volume", parseInt(percentage.toFixed(0)));
+      if (!this.disabled) {
+        const bcr = this.$refs["volume-bar-container"].getBoundingClientRect();
+        const percentage = ((e.clientY - bcr.bottom) / bcr.height) * -100;
+        this.setVolume(percentage);
+        this.$emit("changed-volume", parseInt(percentage.toFixed(0)));
+      }
     },
     setVolume(volume) {
       this.$refs["volume-bar"].style.height = `${volume}%`;
