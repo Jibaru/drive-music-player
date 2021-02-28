@@ -13,6 +13,7 @@
         :times-played="song.timesPlayed"
         :is-favorite="song.isFavorite"
         :duration="song.duration"
+        :selected="song.id === currentSongId"
         @click-favorite-icon="toggleFavorite($event, song.id)"
         @add-to-playlists="openAddSongToPlaylistsDialog(song.id)"
         @click="playSong(index)"
@@ -52,6 +53,7 @@ export default {
     ...mapGetters({
       currentPlaylist: "currentPlayback/currentPlaylist",
       listName: "currentPlayback/listName",
+      currentSongId: "currentPlayback/currentSongId",
     }),
     title() {
       return this.listName || "Current playlist";

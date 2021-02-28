@@ -15,6 +15,7 @@
         :times-played="song.timesPlayed"
         :is-favorite="song.isFavorite"
         :duration="song.duration"
+        :selected="song.id === currentSongId"
         @click-favorite-icon="toggleFavorite($event, song.id)"
         @add-to-playlists="openAddSongToPlaylistsDialog(song.id)"
         @click="playSong(index)"
@@ -56,6 +57,7 @@ export default {
       favoriteSongs: "song/favoriteSongs",
       favoriteSongsEmpty: "song/favoriteSongsEmpty",
       isLoading: "song/fetchingSongs",
+      currentSongId: "currentPlayback/currentSongId",
     }),
   },
   methods: {
