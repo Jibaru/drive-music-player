@@ -6,7 +6,7 @@
     <div class="info">
       <div>
         <h1>
-          {{ currentSong.name }}
+          {{ currentSongName }}
         </h1>
         <p>
           <font-awesome-icon icon="history" /> Times Played:
@@ -14,15 +14,19 @@
         </p>
         <p>
           <font-awesome-icon icon="clock" /> Duration:
-          <span> {{ currentSong.duration }}</span>
+          <span> {{ mappedDuration }}</span>
         </p>
       </div>
       <ul>
         <li>
-          <base-icon-button icon="download" @click="downloadSong" />
+          <base-icon-button
+            icon="download"
+            @click="downloadSong"
+            :disabled="!loadedCurrentSong"
+          />
         </li>
         <li>
-          <base-icon-button icon="list" />
+          <base-icon-button icon="heart" :disabled="!loadedCurrentSong" />
         </li>
       </ul>
     </div>
@@ -31,11 +35,16 @@
       :total-time="currentTotalTime"
       :current-volume="currentVolume"
       :isPlaying="isPlaying"
+      :prev-enabled="canPrev"
+      :play-enabled="loadedCurrentSong"
+      :next-enabled="canNext"
       @changed-bar="changeElapsedTime"
       @changed-volume="changeVolume"
       @play="playSong"
       @pause="pauseSong"
       @play-finished="increaseTimesPlayed"
+      @prev="prevSong"
+      @next="nextSong"
     />
   </section>
 </template>
@@ -54,12 +63,21 @@ export default {
       currentTotalTime: "currentPlayback/currentTotalTime",
       currentVolume: "currentPlayback/currentVolume",
       isPlaying: "currentPlayback/isPlaying",
+      canPrev: "currentPlayback/canPrev",
+      canNext: "currentPlayback/canNext",
+      loadedCurrentSong: "currentPlayback/loadedCurrentSong",
     }),
     songImage() {
       return (
         this.currentSong.imageUrl ||
         require("@/assets/img/default-song-image.jpg")
       );
+    },
+    currentSongName() {
+      return this.currentSong.name || "Song not loaded";
+    },
+    mappedDuration() {
+      return new Date(this.currentTotalTime * 1000).toISOString().substr(14, 5);
     },
   },
   methods: {
@@ -68,6 +86,8 @@ export default {
       changeCurrentVolume: "currentPlayback/changeCurrentVolume",
       playCurrentSong: "currentPlayback/playSong",
       pauseCurrentSong: "currentPlayback/pauseSong",
+      toPrevSong: "currentPlayback/prevSong",
+      toNextSong: "currentPlayback/nextSong",
     }),
     changeElapsedTime({ newElapsedTime }) {
       this.changeCurrentTimestamp({
@@ -85,6 +105,12 @@ export default {
     },
     pauseSong() {
       this.pauseCurrentSong();
+    },
+    prevSong() {
+      this.toPrevSong();
+    },
+    nextSong() {
+      this.toNextSong();
     },
     increaseTimesPlayed() {
       // TODO: Increase times played
