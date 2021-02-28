@@ -20,13 +20,19 @@ export default {
   registered(state) {
     return state.registered;
   },
-  isAuthenticated(state) {
-    return state.userId !== null;
+  isAuthenticated(state, getters) {
+    return state.userId !== null && getters.hasTokenExpired;
   },
   hasRootDriveKey(state) {
     return state.rootDriveKey !== null;
   },
   rootDriveKey(state) {
     return state.rootDriveKey;
+  },
+  hasTokenExpired(state) {
+    return (
+      state.expirationDate &&
+      state.expirationDate.getTime() > new Date().getTime()
+    );
   },
 };
