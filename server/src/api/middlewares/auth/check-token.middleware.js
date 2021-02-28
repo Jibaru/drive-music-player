@@ -7,7 +7,7 @@ const checkTokenMiddleware = (req, res, next) => {
     if (err) {
       return res.status(401).json({
         ok: false,
-        error: "Invalid token",
+        error: "Invalid token. Try login again",
       });
     }
 
