@@ -1,11 +1,11 @@
 <template>
   <div class="current-song-list">
     <nav>
-      <h1>Songlist name A song with very large name and some strange cha</h1>
+      <h1>{{ title }}</h1>
     </nav>
-    <ul>
+    <ul v-if="currentPlaylist.length > 0">
       <song-item
-        v-for="song in songList"
+        v-for="(song, index) in currentPlaylist"
         :key="song.id"
         :song-id="song.id"
         :song-name="song.name"
@@ -13,66 +13,73 @@
         :times-played="song.timesPlayed"
         :is-favorite="song.isFavorite"
         :duration="song.duration"
-        show-delete-button
+        @click-favorite-icon="toggleFavorite($event, song.id)"
+        @add-to-playlists="openAddSongToPlaylistsDialog(song.id)"
+        @click="playSong(index)"
       />
     </ul>
+    <div v-else class="empty-message">
+      Empty
+    </div>
+    <add-song-to-playlists-dialog
+      :open="isAddSongToPlaylistsDialogOpen"
+      @close="closeAddSongToPlaylistsDialog"
+      :songName="selectedSong.name"
+      :songId="selectedSong.id"
+    />
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import SongItem from "./SongItem.vue";
+import AddSongToPlaylistsDialog from "./AddSongToPlaylistsDialog.vue";
 
 export default {
   components: {
     SongItem,
+    AddSongToPlaylistsDialog,
   },
   data() {
     return {
-      songList: [
-        {
-          id: 1,
-          name: "Song 1",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 0,
-          isFavorite: false,
-          duration: 1025,
-        },
-        {
-          id: 2,
-          name: "Song 2",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 235,
-          isFavorite: false,
-          duration: null,
-        },
-        {
-          id: 3,
-          name:
-            "A song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://dummyimage.com/600x400/e8561c/e8e9f0",
-          timesPlayed: 718,
-          isFavorite: true,
-          duration: 325,
-        },
-        {
-          id: 4,
-          name:
-            "Another song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://i.stack.imgur.com/ZN6oD.jpg",
-          timesPlayed: 4,
-          isFavorite: false,
-          duration: null,
-        },
-        {
-          id: 5,
-          name:
-            "Another song with very large name and some strange characters ç*]4ıÈ!Ä`",
-          imageUrl: "https://i.stack.imgur.com/ZN6oD.jpg",
-          timesPlayed: 4,
-          isFavorite: false,
-          duration: null,
-        },
-      ],
+      isAddSongToPlaylistsDialogOpen: false,
+      selectedSong: {
+        id: null,
+        name: null,
+      },
     };
+  },
+  computed: {
+    ...mapGetters({
+      currentPlaylist: "currentPlayback/currentPlaylist",
+      listName: "currentPlayback/listName",
+    }),
+    title() {
+      return this.listName || "Current playlist";
+    },
+  },
+  methods: {
+    ...mapActions({
+      toggleSongFavorite: "song/toggleSongFavorite",
+      setSongAndPlay: "currentPlayback/setSongAndPlay",
+    }),
+    findAndSetSong(id) {
+      const song = this.currentPlaylist.find((s) => s.id == id);
+      this.selectedSong.name = song.name;
+      this.selectedSong.id = song.id;
+    },
+    toggleFavorite(val, songId) {
+      this.toggleSongFavorite({ songId, val });
+    },
+    openAddSongToPlaylistsDialog(songId) {
+      this.findAndSetSong(songId);
+      this.isAddSongToPlaylistsDialogOpen = true;
+    },
+    closeAddSongToPlaylistsDialog() {
+      this.isAddSongToPlaylistsDialogOpen = false;
+    },
+    playSong(index) {
+      this.setSongAndPlay({ song: this.currentPlaylist[index] });
+    },
   },
 };
 </script>
@@ -101,6 +108,15 @@ export default {
   display: block;
   overflow-y: auto;
   overflow-x: hidden;
+  height: calc(100% - 3.5rem);
+}
+
+.empty-message {
+  color: var(--app-primary-contrast-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: calc(100% - 3.5rem);
 }
 </style>
