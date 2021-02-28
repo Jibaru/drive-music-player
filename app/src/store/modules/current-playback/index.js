@@ -15,6 +15,8 @@ export default {
         imageUrl: null,
         timesPlayed: 0,
         totalDuration: null,
+        isFavorite: false,
+        playlists: [],
       },
       playInstance: null,
       loadedCurrentSong: false,
