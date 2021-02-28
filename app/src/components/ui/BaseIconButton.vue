@@ -1,10 +1,11 @@
 <template>
-  <button :class="classStyles">
+  <button :class="classStyles" @click="emitClick">
     <font-awesome-icon :icon="icon" />
   </button>
 </template>
 <script>
 export default {
+  emits: ["click"],
   props: {
     icon: {
       type: [Array, String],
@@ -34,6 +35,11 @@ export default {
         return values.find((v) => v !== val);
       },
     },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   computed: {
     classStyles() {
@@ -43,7 +49,16 @@ export default {
         big: this.big,
         mini: this.mini,
         [this.color]: true,
+        "backgrounded-disabled": this.disabled && !this.unbackground,
+        "unbackgrounded-disabled": this.disabled && this.unbackground,
       };
+    },
+  },
+  methods: {
+    emitClick(e) {
+      if (!this.disabled) {
+        this.$emit("click", e);
+      }
     },
   },
 };
@@ -83,10 +98,7 @@ export default {
   color: var(--app-primary-contrast-color);
   font-size: 1.5rem;
   text-align: center;
-}
-
-.unbackgrounded-btn:hover {
-  background-color: black;
+  cursor: pointer;
 }
 
 .big {
@@ -109,5 +121,30 @@ export default {
 .danger {
   background-color: var(--app-danger-color);
   color: var(--app-danger-contrast-color);
+}
+
+.backgrounded-disabled {
+  color: var(--app-disabled-contrast-color);
+  background-color: var(--app-disabled-color);
+  cursor: default;
+}
+
+.backgrounded-disabled:hover,
+.backgrounded-disabled:active,
+.backgrounded-disabled:focus {
+  opacity: 1;
+}
+
+.unbackgrounded-disabled {
+  color: var(--app-disabled-contrast-color);
+  cursor: default;
+}
+
+.unbackgrounded-disabled:hover {
+  background-color: none !important;
+}
+
+.unbackgrounded-disabled:focus {
+  outline: none;
 }
 </style>
