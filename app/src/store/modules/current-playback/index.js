@@ -14,7 +14,7 @@ export default {
         songUrl: null,
         imageUrl: null,
         timesPlayed: 0,
-        totalDuration: null,
+        durationMilliseconds: null,
         isFavorite: false,
         playlists: [],
       },
