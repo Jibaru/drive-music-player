@@ -10,7 +10,7 @@ export default {
     state.currentSong.name = song.name;
     state.currentSong.songUrl = song.songUrl;
     state.currentSong.imageUrl = song.imageUrl;
-    state.currentSong.duration = song.duration;
+    state.currentSong.durationMilliseconds = song.durationMilliseconds;
     state.currentSong.timesPlayed = song.timesPlayed;
     state.currentSong.isFavorite = song.isFavorite;
     state.currentSong.playlists = song.playlists;
@@ -27,7 +27,19 @@ export default {
       clearInterval(state.timeStampInterval);
       state.currentTotalTime = state.playInstance.duration;
       state.loadedCurrentSong = true;
-      onLoadedSong();
+
+      if (
+        state.playInstance.duration !== state.currentSong.durationMilliseconds
+      ) {
+        state.currentSong.durationMilliseconds = state.playInstance.duration;
+      }
+
+      onLoadedSong({
+        duration: {
+          newVal: state.playInstance.duration,
+          oldVal: song.durationMilliseconds,
+        },
+      });
     };
   },
   play(state, { onFinished }) {
