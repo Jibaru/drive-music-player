@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="actions">
-      <base-button mini>
+      <base-button mini @click="playSongList">
         Play favorite songs
       </base-button>
     </div>
     <ul class="song-list" v-if="!isLoading && !favoriteSongsEmpty">
       <song-item
-        v-for="song in favoriteSongs"
+        v-for="(song, index) in favoriteSongs"
         :key="song.id"
         :song-id="song.id"
         :song-name="song.name"
@@ -17,6 +17,7 @@
         :duration="song.duration"
         @click-favorite-icon="toggleFavorite($event, song.id)"
         @add-to-playlists="openAddSongToPlaylistsDialog(song.id)"
+        @click="playSong(index)"
       />
     </ul>
     <base-spinner v-else-if="isLoading" centered full-height />
@@ -60,6 +61,7 @@ export default {
   methods: {
     ...mapActions({
       toggleSongFavorite: "song/toggleSongFavorite",
+      setSongsPlaylistAndPlay: "currentPlayback/setSongsPlaylistAndPlay",
     }),
     findAndSetSong(id) {
       const song = this.favoriteSongs.find((s) => s.id == id);
@@ -75,6 +77,18 @@ export default {
     },
     closeAddSongToPlaylistsDialog() {
       this.isAddSongToPlaylistsDialogOpen = false;
+    },
+    playSong(index) {
+      this.setSongsPlaylistAndPlay({
+        songs: [this.favoriteSongs[index]],
+        name: "Favorite songs",
+      });
+    },
+    playSongList() {
+      this.setSongsPlaylistAndPlay({
+        songs: this.favoriteSongs,
+        name: "Favorite songs",
+      });
     },
   },
 };
