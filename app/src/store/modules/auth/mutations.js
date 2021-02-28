@@ -18,4 +18,7 @@ export default {
   setRootDriveKey(state, { rootDriveKey }) {
     state.rootDriveKey = rootDriveKey;
   },
+  setExpirationDate(state, { expirationDate }) {
+    state.expirationDate = expirationDate;
+  },
 };
