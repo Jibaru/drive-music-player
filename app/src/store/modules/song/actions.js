@@ -33,6 +33,11 @@ export default {
 
       context.commit("toggleSongFavorite", { songId, val });
       context.dispatch(
+        "currentPlayback/toggleSongInPlaybackFavorite",
+        { songId, val },
+        { root: true }
+      );
+      context.dispatch(
         "showGlobalSnackBarMessage",
         { message },
         { root: true }
