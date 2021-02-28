@@ -11,6 +11,10 @@ export default {
       context.commit("setToken", { token: data.jwt });
       context.commit("setUserAuth", data.user);
 
+      // To Localstorage
+      localStorage.setItem("token", data.jwt);
+      localStorage.setItem("userAuth", JSON.stringify(data.user));
+
       context.dispatch(
         "showGlobalSnackBarMessage",
         {
@@ -28,6 +32,15 @@ export default {
           root: true,
         }
       );
+    }
+  },
+  tryGetLocalStorageAuth(context) {
+    const token = localStorage.getItem("token");
+    const userAuth = localStorage.getItem("userAuth");
+
+    if (token && userAuth) {
+      context.commit("setToken", { token });
+      context.commit("setUserAuth", JSON.parse(userAuth));
     }
   },
   async preRegister(context, { username, email, password }) {
@@ -89,5 +102,8 @@ export default {
   },
   setAuthUserRootDriveKey(context, { rootDriveKey }) {
     context.commit("setRootDriveKey", { rootDriveKey });
+
+    // To Localstorage
+    localStorage.setItem("userAuth", JSON.stringify(context.getters.userAuth));
   },
 };
