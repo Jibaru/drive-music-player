@@ -11,13 +11,14 @@
     </div>
     <ul class="playlists-list" v-if="!isLoading && !playlistsEmpty">
       <playlist-item
-        v-for="playlist in playlists"
+        v-for="(playlist, index) in playlists"
         :key="playlist.id"
         :playlist-id="playlist.id"
         :playlist-name="playlist.name"
         :count-songs="playlist.songs.length"
         @delete="openDeletePlaylistDialog(playlist.id)"
         @add-song="openAddSongsToPlaylistDialog(playlist.id)"
+        @click="playPlaylist(index)"
       />
     </ul>
     <base-spinner v-else-if="isLoading" centered full-height />
@@ -39,7 +40,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import PlaylistItem from "./PlaylistItem.vue";
 import NewPlaylistDialog from "./NewPlaylistDialog.vue";
 import DeletePlaylistDialog from "./DeletePlaylistDialog.vue";
@@ -71,6 +72,9 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      findPlaylistSongsAndPlay: "currentPlayback/findPlaylistSongsAndPlay",
+    }),
     findAndSetPlaylist(id) {
       const playlist = this.playlists.find((p) => p.id == id);
       this.selectedPlaylist.name = playlist.name;
@@ -95,6 +99,12 @@ export default {
     },
     closeAddSongsToPlaylistDialog() {
       this.isAddSongsToPlaylistDialogOpen = false;
+    },
+    playPlaylist(index) {
+      this.findPlaylistSongsAndPlay({
+        name: this.playlists[index].name,
+        playlistId: this.playlists[index].id,
+      });
     },
   },
 };
