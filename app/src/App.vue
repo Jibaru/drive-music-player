@@ -47,11 +47,15 @@ export default {
       disposeGlobalSnackbarMessage: "disposeGlobalSnackbarMessage",
       fetchSongs: "song/fetchSongs",
       fetchPlaylists: "playlist/fetchPlaylists",
+      tryGetLocalStorageAuth: "auth/tryGetLocalStorageAuth",
     }),
     onCloseSnackbar() {
       this.globalSnackbar.isVisible = false;
       this.disposeGlobalSnackbarMessage();
     },
+  },
+  created() {
+    this.tryGetLocalStorageAuth();
   },
 };
 </script>
