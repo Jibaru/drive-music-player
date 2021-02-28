@@ -15,6 +15,7 @@ const loginController = async (req, res) => {
       ok: true,
       user,
       jwt,
+      expiresIn: process.env.TOKEN_EXPIRES,
     });
   } catch (error) {
     return res.status(400).json({
