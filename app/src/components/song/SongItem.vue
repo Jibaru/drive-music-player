@@ -1,5 +1,5 @@
 <template>
-  <li class="song-item" @click="$emit('click')">
+  <li class="song-item" :class="{ selected: selected }" @click="$emit('click')">
     <div>
       <img :src="songImage" alt="song-image" />
     </div>
@@ -56,6 +56,11 @@ export default {
       required: false,
     },
     showDeleteButton: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    selected: {
       type: Boolean,
       required: false,
       default: false,
@@ -158,5 +163,10 @@ export default {
 .actions li {
   list-style: none;
   display: inline-block;
+}
+
+.selected {
+  background-color: var(--app-selected-color);
+  color: var(--app-selected-contrast-color);
 }
 </style>
