@@ -2,7 +2,7 @@
   <section class="user-data">
     <div class="user-info">
       <div>
-        <base-button icon bottom-left-rounded color="light">
+        <base-button icon bottom-left-rounded color="light" @click="logout">
           <base-icon icon="sign-out-alt" />
         </base-button>
       </div>
@@ -76,6 +76,7 @@ export default {
   methods: {
     ...mapActions({
       refreshDriveSongs: "user/refreshDriveSongs",
+      logoutAction: "auth/logout",
     }),
     openRefreshDialog() {
       this.isRefreshDialogOpen = true;
@@ -95,6 +96,10 @@ export default {
     },
     refreshUserDriveSongs() {
       this.refreshDriveSongs();
+    },
+    async logout() {
+      await this.logoutAction();
+      window.location.replace("/login");
     },
   },
 };
