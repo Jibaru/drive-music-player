@@ -1,14 +1,14 @@
 <template>
-  <li class="playlist-item">
+  <li class="playlist-item" @click="$emit('click')">
     <div class="info">
       <h2>{{ playlistName }}</h2>
       <p>{{ countSongs }} songs</p>
     </div>
     <div class="actions">
-      <base-button mini color="danger" @click="$emit('delete')">
+      <base-button mini color="danger" @click.stop="$emit('delete')">
         <base-icon icon="trash-alt" /> Delete
       </base-button>
-      <base-button mini @click="$emit('add-song')">
+      <base-button mini @click.stop="$emit('add-song')">
         <base-icon icon="plus" /> Add song
       </base-button>
     </div>
@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  emits: ["delete", "add-song"],
+  emits: ["click", "delete", "add-song"],
   props: {
     playlistId: {
       type: Number,
