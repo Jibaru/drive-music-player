@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <main v-if="hasRootDriveKey">
+    <main v-if="hasRootDriveKey && isAuthenticated">
       <the-menu class="menu" />
       <current-song class="current-song" />
       <current-song-list class="current-song-list" />
     </main>
-    <div v-else>
+    <div v-else-if="!hasRootDriveKey && isAuthenticated">
       <change-root-drive-key full-page />
     </div>
   </div>
@@ -28,6 +28,7 @@ export default {
   computed: {
     ...mapGetters({
       hasRootDriveKey: "auth/hasRootDriveKey",
+      isAuthenticated: "auth/isAuthenticated",
     }),
   },
 };

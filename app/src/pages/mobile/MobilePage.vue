@@ -1,10 +1,10 @@
 <template>
   <div class="mobile-page-container">
-    <div v-if="hasRootDriveKey">
+    <div v-if="hasRootDriveKey && isAuthenticated">
       <router-view class="main"></router-view>
       <the-navbar class="navbar"></the-navbar>
     </div>
-    <div v-else>
+    <div v-elseif="!hasRootDriveKey && isAuthenticated">
       <change-root-drive-key full-page />
     </div>
   </div>
@@ -23,6 +23,7 @@ export default {
   computed: {
     ...mapGetters({
       hasRootDriveKey: "auth/hasRootDriveKey",
+      isAuthenticated: "auth/isAuthenticated",
     }),
   },
 };
