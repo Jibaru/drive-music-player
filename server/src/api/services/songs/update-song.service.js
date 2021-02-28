@@ -2,9 +2,9 @@ const { Song } = require("../../../db/models/index");
 
 const updateSongService = async (
   songId,
-  { name, timesPlayed, isFavorite, durationSeconds }
+  { name, timesPlayed, isFavorite, durationMilliseconds }
 ) => {
-  const updateFields = { name, timesPlayed, isFavorite, durationSeconds };
+  const updateFields = { name, timesPlayed, isFavorite, durationMilliseconds };
   const songFinded = await Song.findByPk(songId);
 
   if (!songFinded) {
