@@ -95,7 +95,7 @@ export default {
 </script>
 <style scoped>
 .playlists {
-  height: 50vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
