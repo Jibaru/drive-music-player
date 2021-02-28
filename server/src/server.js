@@ -3,6 +3,7 @@
 /// ===================================================
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 // Environment
 require("dotenv").config();
@@ -24,7 +25,7 @@ app.use(bodyParser.json());
 app.use(require("./api/index"));
 
 // SPA
-app.use(express.static(__dirname + "../app/dist"));
+app.use(express.static(path.join(__dirname, "../../app/dist")));
 
 // Run server
 app.listen(process.env.PORT, () => {
