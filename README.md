@@ -29,9 +29,9 @@ Finally, the result is the following:
 ![Login](screenshots/screenshot-3.png)
 ![FinalResult](screenshots/screenshot-2.png)
 
-And it has a mobile version!
+And it has a web mobile version!
 
-![Mobile](screenshots/screenshot-4.png?style=centerme)
+![Mobile](screenshots/screenshot-4.png)
 
 ## Files supported
 
@@ -52,10 +52,3 @@ And it has a mobile version!
 ## Authentication Method
 
 Simple email/user and password authentication. Don't use OAuth.
-
-<style>
-img[src$="centerme"] {
-  display:block;
-  margin: 0 auto;
-}
-</style>
