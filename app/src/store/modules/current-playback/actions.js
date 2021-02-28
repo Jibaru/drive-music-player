@@ -1,4 +1,11 @@
 export default {
+  setSongsPlaylistAndPlay(context, { songs, name }) {
+    if (!!songs && songs.length > 0) {
+      context.commit("setListName", { name });
+      context.commit("setSongsPlaylist", { songs });
+      context.dispatch("setSongAndPlay", { song: songs[0] });
+    }
+  },
   setSongAndPlay(context, { song }) {
     context.commit("setCurrentSong", {
       song,
@@ -6,15 +13,42 @@ export default {
         context.commit("changeCurrentVolume", {
           percentage: context.getters.currentVolume,
         });
-        context.commit("play");
+        context.dispatch("playSong");
+        // TODO: Dispatch set user song duration
       },
     });
   },
   playSong(context) {
-    context.commit("play");
+    if (context.getters.loadedCurrentSong) {
+      context.commit("play", {
+        onFinished: () => {
+          if (context.getters.autoNextEnabled) {
+            context.dispatch("nextSong");
+          }
+        },
+      });
+    }
   },
   pauseSong(context) {
-    context.commit("pause");
+    if (context.getters.loadedCurrentSong) {
+      context.commit("pause");
+    }
+  },
+  nextSong(context) {
+    if (context.getters.canNext) {
+      context.dispatch("setSongAndPlay", {
+        song:
+          context.getters.currentPlaylist[context.getters.currentSongIndex + 1],
+      });
+    }
+  },
+  prevSong(context) {
+    if (context.getters.canPrev) {
+      context.dispatch("setSongAndPlay", {
+        song:
+          context.getters.currentPlaylist[context.getters.currentSongIndex - 1],
+      });
+    }
   },
   changeCurrentTimestamp(context, { timestamp }) {
     context.commit("changeCurrentTimestamp", { timestamp });
