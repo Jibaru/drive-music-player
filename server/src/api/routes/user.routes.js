@@ -13,8 +13,8 @@ const ROUTES = {
   increaseTimesPlayedByOneUserSong:
     "/api/users/:userId/songs/:songId/increase-times-played-by-one",
   refreshUserSongs: "/api/users/:userId/songs/refresh",
-  setDurationSecondsUserSong:
-    "/api/users/:userId/songs/:songId/set-duration-seconds",
+  setDurationMillisecondsUserSong:
+    "/api/users/:userId/songs/:songId/set-duration-milliseconds",
   updateFavoriteUserSong: "/api/users/:userId/songs/:songId",
   updateUserRootDriveKey: "/api/users/:userId/root-drive-key",
 };
@@ -74,9 +74,9 @@ app.put(
 );
 
 app.post(
-  ROUTES.setDurationSecondsUserSong,
+  ROUTES.setDurationMillisecondsUserSong,
   [checkTokenMiddleware],
-  require("../controllers/user/set-duration-seconds-user-song.controller")
+  require("../controllers/user/set-duration-milliseconds-user-song.controller")
 );
 
 app.put(
