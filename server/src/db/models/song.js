@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
-      durationSeconds: {
+      durationMilliseconds: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
