@@ -12,7 +12,7 @@
         :image-url="song.imageUrl"
         :times-played="song.timesPlayed"
         :is-favorite="song.isFavorite"
-        :duration="song.duration"
+        :duration="song.durationMilliseconds"
         :selected="song.id === currentSongId"
         @click-favorite-icon="toggleFavorite($event, song.id)"
         @add-to-playlists="openAddSongToPlaylistsDialog(song.id)"
