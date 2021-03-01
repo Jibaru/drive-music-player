@@ -4,7 +4,7 @@
       <router-view class="main"></router-view>
       <the-navbar class="navbar"></the-navbar>
     </div>
-    <div v-elseif="!hasRootDriveKey && isAuthenticated">
+    <div v-else-if="!hasRootDriveKey && isAuthenticated">
       <change-root-drive-key full-page />
     </div>
   </div>
