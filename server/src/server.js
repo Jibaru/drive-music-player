@@ -11,7 +11,7 @@ require("dotenv").config();
 
 // Express server
 const app = express();
-const frontRoot = path.join(__dirname, "../../app/dist/");
+const frontRoot = path.join(__dirname, "/public/dist");
 
 // Body Parser
 const bodyParser = require("body-parser");
