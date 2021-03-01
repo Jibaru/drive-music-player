@@ -4,12 +4,14 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const history = require("connect-history-api-fallback");
 
 // Environment
 require("dotenv").config();
 
 // Express server
 const app = express();
+const frontRoot = path.join(__dirname, "../../app/dist/");
 
 // Body Parser
 const bodyParser = require("body-parser");
@@ -25,7 +27,12 @@ app.use(bodyParser.json());
 app.use(require("./api/index"));
 
 // SPA
-app.use(express.static(path.join(__dirname, "../../app/dist")));
+app.use(
+  history({
+    verbose: true,
+  })
+);
+app.use(express.static(frontRoot));
 
 // Run server
 app.listen(process.env.PORT, () => {
