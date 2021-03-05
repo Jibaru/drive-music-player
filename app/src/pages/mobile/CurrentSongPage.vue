@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import CurrentSong from "../components/song/CurrentSong.vue";
+import CurrentSong from "../../components/song/CurrentSong.vue";
 
 export default {
   components: {

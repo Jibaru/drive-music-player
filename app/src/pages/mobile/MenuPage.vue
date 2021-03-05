@@ -2,7 +2,7 @@
   <the-menu />
 </template>
 <script>
-import TheMenu from "../components/menu/TheMenu.vue";
+import TheMenu from "../../components/menu/TheMenu.vue";
 
 export default {
   components: {
