@@ -3,9 +3,16 @@ export default {
     state.listName = name;
   },
   setSongsPlaylist(state, { songs }) {
-    state.songsPlaylist = songs;
+    if (songs) {
+      state.songsPlaylist = [];
+      songs.forEach((song) => {
+        state.songsPlaylist.push({ ...song });
+      });
+    }
   },
   setCurrentSong(state, { song, onLoadedSong }) {
+    state.loadingCurrentSong = true;
+
     state.currentSong.id = song.id;
     state.currentSong.name = song.name;
     state.currentSong.songUrl = song.songUrl;
@@ -20,6 +27,7 @@ export default {
       state.playInstance.currentTime = 0;
       state.playInstance.pause();
       state.loadedCurrentSong = false;
+      state.endedCurrentSong = false;
     }
     state.playInstance = new Audio(song.songUrl);
 
@@ -27,6 +35,7 @@ export default {
       clearInterval(state.timeStampInterval);
       state.currentTotalTime = state.playInstance.duration;
       state.loadedCurrentSong = true;
+      state.loadingCurrentSong = false;
 
       if (
         state.playInstance.duration !== state.currentSong.durationMilliseconds
@@ -53,6 +62,7 @@ export default {
           clearInterval(state.timeStampInterval);
           state.currentTimestamp = 0;
           state.isPlaying = false;
+          state.endedCurrentSong = true;
 
           if (onFinished) {
             onFinished();
@@ -93,6 +103,15 @@ export default {
     const index = state.songsPlaylist.findIndex((song) => song.id === songId);
     if (index !== -1) {
       state.songsPlaylist[index].durationMilliseconds = duration;
+    }
+  },
+  increaseSongTimesPlayedByOne(state, { songId }) {
+    const index = state.songsPlaylist.findIndex((song) => song.id === songId);
+    if (index !== -1) {
+      state.songsPlaylist[index].timesPlayed++;
+      if (state.currentSong.id === songId) {
+        state.currentSong.timesPlayed++;
+      }
     }
   },
 };
