@@ -1,6 +1,7 @@
 import getUserSongsService from "../../../services/song/get-user-songs.service.js";
 import updateFavoriteUserSongService from "../../../services/song/update-favorite-user-song.service.js";
 import setDurationUserSongService from "../../../services/song/set-duration-user-song.service.js";
+import increaseTimesPlayedByOneUserSongService from "../../../services/song/increase-times-played-by-one-user-song.service.js";
 
 export default {
   async fetchSongs(context) {
@@ -69,6 +70,30 @@ export default {
       });
 
       context.commit("setSongDuration", { songId, duration });
+    } catch (error) {
+      context.dispatch(
+        "showGlobalSnackBarMessage",
+        { message: error.message },
+        { root: true }
+      );
+    }
+  },
+  async increaseSongTimesPlayedByOne(context, { songId }) {
+    try {
+      const userId = context.rootGetters["auth/userId"];
+      const token = context.rootGetters["auth/token"];
+      await increaseTimesPlayedByOneUserSongService({
+        userId,
+        songId,
+        token,
+      });
+
+      context.commit("increaseSongTimesPlayedByOne", { songId });
+      context.dispatch(
+        "currentPlayback/increasePlaybackSongTimesPlayedByOne",
+        { songId },
+        { root: true }
+      );
     } catch (error) {
       context.dispatch(
         "showGlobalSnackBarMessage",
