@@ -4,9 +4,9 @@ import store from "./store/index.js";
 import LoginPage from "./pages/LoginPage.vue";
 import RegisterPage from "./pages/RegisterPage.vue";
 import HomePage from "./pages/HomePage.vue";
-import MenuPage from "./pages/MenuPage.vue";
-import CurrentSongPage from "./pages/CurrentSongPage.vue";
-import CurrentPlaylistPage from "./pages/CurrentPlaylistPage.vue";
+import MenuPage from "./pages/mobile/MenuPage.vue";
+import CurrentSongPage from "./pages/mobile/CurrentSongPage.vue";
+import CurrentPlaylistPage from "./pages/mobile/CurrentPlaylistPage.vue";
 import MobilePage from "./pages/mobile/MobilePage.vue";
 
 /**
