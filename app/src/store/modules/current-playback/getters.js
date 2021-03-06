@@ -38,6 +38,12 @@ export default {
   loadedCurrentSong(state) {
     return state.loadedCurrentSong;
   },
+  loadingCurrentSong(state) {
+    return state.loadingCurrentSong;
+  },
+  endedCurrentSong(state) {
+    return state.endedCurrentSong;
+  },
   canNext(state, getters) {
     return (
       getters.currentSongIndex !== -1 &&
