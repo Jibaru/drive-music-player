@@ -7,7 +7,8 @@
         </base-button>
       </div>
       <div>
-        <h1>Ignacio</h1>
+        <h1>{{ userAuth.username }}</h1>
+        <h5>{{ userAuth.email }}</h5>
       </div>
     </div>
     <div class="user-buttons">
@@ -63,6 +64,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      userAuth: "auth/userAuth",
       refreshingDriveSongs: "user/refreshingDriveSongs",
     }),
   },
@@ -121,6 +123,11 @@ export default {
 .user-info h1 {
   color: var(--app-primary-contrast-color);
   font-size: 2rem;
+}
+
+.user-info h5 {
+  color: var(--app-primary-contrast-color);
+  font-size: 1rem;
 }
 
 .user-info div:last-child {
