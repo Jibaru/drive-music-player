@@ -26,4 +26,8 @@ export default {
     const index = state.songs.findIndex((song) => song.id === songId);
     state.songs[index].durationMilliseconds = duration;
   },
+  increaseSongTimesPlayedByOne(state, { songId }) {
+    const index = state.songs.findIndex((song) => song.id === songId);
+    state.songs[index].timesPlayed++;
+  },
 };
