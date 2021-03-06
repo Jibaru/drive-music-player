@@ -20,6 +20,8 @@ export default {
       },
       playInstance: null,
       loadedCurrentSong: false,
+      loadingCurrentSong: false,
+      endedCurrentSong: false,
       currentTimestamp: 0,
       currentTotalTime: 0,
       timeStampInterval: null,
