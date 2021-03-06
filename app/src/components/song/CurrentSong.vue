@@ -48,7 +48,6 @@
       @changed-volume="changeVolume"
       @play="playSong"
       @pause="pauseSong"
-      @play-finished="increaseTimesPlayed"
       @prev="prevSong"
       @next="nextSong"
       class="play-control"
@@ -73,6 +72,7 @@ export default {
       canPrev: "currentPlayback/canPrev",
       canNext: "currentPlayback/canNext",
       loadedCurrentSong: "currentPlayback/loadedCurrentSong",
+      endedCurrentSong: "currentPlayback/endedCurrentSong",
     }),
     songImage() {
       return (
@@ -90,6 +90,13 @@ export default {
       return this.currentSong.isFavorite ? ["fas", "heart"] : ["far", "heart"];
     },
   },
+  watch: {
+    endedCurrentSong(newVal) {
+      if (newVal) {
+        this.increaseTimesPlayed();
+      }
+    },
+  },
   methods: {
     ...mapActions({
       changeCurrentTimestamp: "currentPlayback/changeCurrentTimestamp",
@@ -99,6 +106,7 @@ export default {
       toPrevSong: "currentPlayback/prevSong",
       toNextSong: "currentPlayback/nextSong",
       toggleSongFavorite: "song/toggleSongFavorite",
+      increaseSongTimesPlayedByOne: "song/increaseSongTimesPlayedByOne",
     }),
     changeElapsedTime({ newElapsedTime }) {
       this.changeCurrentTimestamp({
@@ -124,7 +132,7 @@ export default {
       this.toNextSong();
     },
     increaseTimesPlayed() {
-      // TODO: Increase times played
+      this.increaseSongTimesPlayedByOne({ songId: this.currentSong.id });
     },
     toggleFavorite() {
       this.toggleSongFavorite({
