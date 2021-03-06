@@ -1,6 +1,6 @@
 export default {
   setSongsPlaylistAndPlay(context, { songs, name }) {
-    if (!!songs && songs.length > 0) {
+    if (!!songs && songs.length > 0 && !context.getters.loadingCurrentSong) {
       context.commit("setListName", { name });
       context.commit("setSongsPlaylist", { songs });
       context.dispatch("setSongAndPlay", { song: songs[0] });
@@ -78,5 +78,8 @@ export default {
   },
   toggleSongInPlaybackFavorite(context, { songId, val }) {
     context.commit("toggleSongFavorite", { songId, val });
+  },
+  increasePlaybackSongTimesPlayedByOne(context, { songId }) {
+    context.commit("increaseSongTimesPlayedByOne", { songId });
   },
 };
