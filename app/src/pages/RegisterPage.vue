@@ -70,7 +70,13 @@
         </div>
       </form>
     </div>
-    <div class="background-card"></div>
+    <div class="background-card">
+      <img
+        :src="backgroundImageUrl"
+        alt="background"
+        class="background-image"
+      />
+    </div>
     <footer>
       <p>
         Created By
@@ -109,6 +115,9 @@ export default {
       isPreRegistered: "auth/isPreRegistered",
       registered: "auth/registered",
     }),
+    backgroundImageUrl() {
+      return require("@/assets/img/background.svg");
+    },
   },
   watch: {
     registered(newVal) {
@@ -276,6 +285,15 @@ main {
   background-color: var(--app-secondary-color);
   z-index: 1;
   border-radius: 5rem 0 5rem 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-image {
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (min-width: 530px) {
