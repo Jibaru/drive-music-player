@@ -53,6 +53,42 @@ gcloud app deploy
 
 Remember select a project and bucket.
 
+## Deploying to Heroku
+
+1. Create a herokuapp
+2. Clone the repository and login with Heroku CLI
+```
+heroku login
+```
+3. Add heroku app to remotes
+```
+heroku git:remote -a <app-name>
+```
+4. Add these buildpacks:
+
+```
+heroku buildpacks:clear
+heroku buildpacks:set https://github.com/timanovsky/subdir-heroku-buildpack
+heroku buildpacks:add heroku/nodejs
+```
+5. Add a project path variable:
+
+```
+heroku config:set PROJECT_PATH=server
+```
+
+6. Add all env variables in `.env` file
+```
+heroku config:set NODE_ENV=development
+heroku config:set PORT=3000
+...
+```
+7. Deploy
+
+```
+git push heroku main
+```
+
 ## Dependencies
 - [Bcrypt](https://www.npmjs.com/package/bcrypt)
 - [Body Parser](https://www.npmjs.com/package/body-parser)
