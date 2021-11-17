@@ -34,9 +34,11 @@ app.use(
 );
 app.use(express.static(frontRoot));
 
-app.get("/", function (req, res) {
-  res.render(path.join(frontRoot + "/index.html"));
-});
+if (process.env.NODE_ENV === "development") {
+  app.get(/^((?!(api)).)*$/, (req, res) => {
+    res.sendFile(path.join(__dirname + "/index.html"));
+  });
+}
 
 // Run server
 app.listen(process.env.PORT, () => {
