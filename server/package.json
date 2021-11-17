@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "build-start": "npm run build-app && node src/server.js",
-    "heroku-postbuild": "cd ../app/ && npm run build && cd ../server && mv ../app/dist public",
+    "build-start": "npm run heroku-postbuild && node src/server.js",
+    "heroku-postbuild": "cd ../app/ && npm install && npm run build && cd ../server && mv ../app/dist public",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate-all": "npx sequelize-cli db:migrate",
     "migrate-fresh": "npx sequelize-cli db:migrate:undo:all",
