@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 // API
 app.use(require("./api/index"));
 
+app.use(express.static(frontRoot));
 // SPA
 app.use(
   history({
@@ -35,7 +36,7 @@ app.use(
 app.use(express.static(frontRoot));
 
 app.get(/^((?!(api)).)*$/, (req, res) => {
-  res.sendFile(path.join("public" + "index.html"));
+  res.sendFile(path.join(frontRoot, "index.html"));
 });
 
 // Run server
