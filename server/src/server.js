@@ -34,6 +34,10 @@ app.use(
 );
 app.use(express.static(frontRoot));
 
+app.get("/", function (req, res) {
+  res.render(path.join(frontRoot + "/index.html"));
+});
+
 // Run server
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port: ${process.env.PORT}`);
