@@ -36,7 +36,7 @@ app.use(express.static(frontRoot));
 
 if (process.env.NODE_ENV === "development") {
   app.get(/^((?!(api)).)*$/, (req, res) => {
-    res.sendFile(path.join(__dirname + "/index.html"));
+    res.sendFile(path.join(frontRoot + "/index.html"));
   });
 }
 
