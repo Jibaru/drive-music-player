@@ -55,6 +55,6 @@ Simple email/user and password authentication. Don't use OAuth.
 
 ## Deployed App (DEMO)
 
-[Drive Music Player](https://pro-groove-304718.uc.r.appspot.com/)
+[Drive Music Player](https://drive-music-player.herokuapp.com/)
 
 Note: This is a demo version, if you can't register is totally normal because. I'm not paying for an email delivery service. If you want to register, send me a message through my [email](ignacioruedaboada@gmail.com).
