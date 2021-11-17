@@ -36,7 +36,8 @@ app.use(
 app.use(express.static(frontRoot));
 
 app.get(/^((?!(api)).)*$/, (req, res) => {
-  res.sendFile(frontRoot, "index.html");
+  res.render(frontRoot);
+  //res.sendFile(frontRoot, "index.html");
 });
 
 // Run server
