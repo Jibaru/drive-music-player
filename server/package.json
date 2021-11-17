@@ -4,7 +4,8 @@
   "description": "Drive Music Player Backend",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "npm run build-app && node src/server.js",
+    "build-app": "cd ../app/ && npm run build && cd ../server && mv ../app/dist public",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate-all": "npx sequelize-cli db:migrate",
     "migrate-fresh": "npx sequelize-cli db:migrate:undo:all",
@@ -28,7 +29,8 @@
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "@vue/cli-service": "~4.5.0"
   },
   "engines": {
     "node": "14.x"
