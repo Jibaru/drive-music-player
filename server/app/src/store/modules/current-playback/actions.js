@@ -43,7 +43,9 @@ export default {
       context.commit("play", {
         onFinished: () => {
           if (context.getters.autoNextEnabled) {
-            context.dispatch("nextSong");
+            setTimeout(() => {
+              context.dispatch("nextSong");
+            }, 2000);
           }
         },
       });
